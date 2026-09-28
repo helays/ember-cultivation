@@ -266,7 +266,8 @@
       "source": "L2",
       "generator": "scripts/gen-audio.mjs",
       "sourceFile": "src/assets/psg/bgm-qingyun.psg.txt",
-      "status": "planned",
+      "status": "placeholder",
+      "note": "占位时长（短于 spec.durationTarget）；升为 final 前必须补齐时长，check-assets 会拦下",
       "license": "project",
       "author": "EmberCultivation contributors",
       "tags": ["bgm", "qingyun", "town"]
@@ -279,7 +280,8 @@
       "source": "L2",
       "generator": "scripts/gen-audio.mjs",
       "sourceFile": "src/assets/psg/bgm-battle-normal.psg.txt",
-      "status": "planned",
+      "status": "placeholder",
+      "note": "占位时长（短于 spec.durationTarget）；升为 final 前必须补齐时长，check-assets 会拦下",
       "license": "project",
       "author": "EmberCultivation contributors",
       "tags": ["bgm", "battle", "normal"]
@@ -291,7 +293,7 @@
       "spec": { "maxMs": 80 },
       "source": "L2",
       "generator": "scripts/gen-audio.mjs",
-      "status": "planned",
+      "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
       "tags": ["sfx", "ui", "click"]

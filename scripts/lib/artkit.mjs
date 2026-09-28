@@ -239,10 +239,3 @@ export function frame(sheet, x0, y0, x1, y1, v) {
   vline(sheet, x0, y0, y1, v)
   vline(sheet, x1, y0, y1, v)
 }
-
-/** 索引直方图（自检用：用于断言某色确实出现 / 没出现） */
-export function histogram(indices) {
-  const hist = new Array(16).fill(0)
-  for (const v of indices) hist[v]++
-  return hist
-}

@@ -267,7 +267,7 @@ function checkFrameAlignment(entry) {
   return `align ${entry.id} (${kind}) · ${frames.length} 帧 · 底边 y=${bottoms.join('/')} · 中心 x=${uniqX.join('/')}`
 }
 
-/** 8. 音频 */
+/** 8. 音频（返回探测结果，供上层比对标称时长） */
 function checkAudio(file) {
   const r = rel(file)
   const size = fs.statSync(file).size
@@ -278,8 +278,10 @@ function checkAudio(file) {
     const st = info.streams?.[0] || {}
     const dur = Number(info.format?.duration || 0)
     notes.push(`audio ${r}: ${st.sample_rate || '?'} Hz / ${st.channels || '?'} ch / ${dur.toFixed(2)}s / ${(size / 1024).toFixed(0)} KB`)
+    return { duration: dur, sampleRate: Number(st.sample_rate || 0), channels: Number(st.channels || 0) }
   } catch (e) {
     warn(`${r}: ffprobe 读取失败（${e.message.split('\n')[0]}）`)
+    return null
   }
 }
 
@@ -321,8 +323,21 @@ function main() {
     }
   }
 
-  // 8. 音频
-  for (const f of audios) checkAudio(f)
+  // 8. 音频 + 标称时长比对
+  // placeholder 允许时长不足（占位曲就是要短），但 status=final 时必须贴近 spec.durationTarget，
+  // 否则"标称 90 秒的 BGM"会带着 45 秒的占位曲上线。
+  for (const f of audios) {
+    const info = checkAudio(f)
+    const entry = byPath.get(rel(f))
+    const target = entry?.spec?.durationTarget
+    if (!info || !target) continue
+    const ratio = info.duration / target
+    if (entry.status === 'final' && Math.abs(1 - ratio) > 0.25) {
+      err(`${rel(f)}: 时长 ${info.duration.toFixed(2)}s 偏离 spec.durationTarget ${target}s 超过 25%（status=final 不允许）`)
+    } else if (entry.status !== 'final') {
+      notes.push(`audio ${rel(f)}: 占位时长 ${info.duration.toFixed(2)}s / 目标 ${target}s（status=${entry.status}，暂不判错）`)
+    }
+  }
 
   // 2. manifest ↔ 磁盘双向
   if (manifest) {

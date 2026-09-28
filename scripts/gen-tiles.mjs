@@ -575,7 +575,7 @@ const decoSign = painted((g, variant) => {
     hline(g, 4, 27, 7, C.BRONZE) // 横杆
     hline(g, 4, 27, 8, C.BRONZE_DARK)
     rect(g, 12, 9, 19, 24, C.MOSS) // 布幌
-    frame(g, 12, 9, 19, 24, C.INK)
+    frame(g, 12, 9, 19, 24, C.TEAL_DARK) // 布边（深墨青底上要看得见，不能用 INK）
     put(g, 13, 25, C.TEAL_DARK) // 下摆流苏
     put(g, 18, 25, C.TEAL_DARK)
   } else if (variant === 2) {

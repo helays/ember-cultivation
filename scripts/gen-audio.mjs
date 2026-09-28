@@ -287,7 +287,7 @@ function renderChannel(seq, ch) {
 
 /** 把各通道按声像混合成 [L,R]；peak 归一化到 0.85 */
 function mixdown(channels, pans, stereo) {
-  const total = channels[channels[0]] ? channels[channels[0]].length : 0
+  const total = Object.values(channels)[0]?.length || 0
   const L = new Float32Array(total)
   const R = new Float32Array(total)
   for (const [ch, buf] of Object.entries(channels)) {
