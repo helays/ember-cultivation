@@ -157,17 +157,17 @@ onUnmounted(() => {
   width: 420px;
   max-width: 92vw;
   padding: 18px 22px 22px;
-  background: #1d3b45;
-  border: 2px solid #8c6a3f;
-  box-shadow: 0 0 0 2px #0d1f27, 0 8px 24px rgba(0, 0, 0, 0.5);
+  /* 9-slice panel art replaces the flat placeholder block (doc/15 §2.3) */
+  border: 16px solid transparent;
+  border-image: url('@/assets/ui/frames/ui-frame-panel-9slice.png') 16 fill;
+  image-rendering: pixelated;
   color: #e8e6dc;
-  font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
 }
 .panel-head {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 13px;
+  font-size: 12px;
   color: #e0c070;
   margin-bottom: 14px;
   letter-spacing: 1px;
@@ -175,7 +175,8 @@ onUnmounted(() => {
 .close {
   padding: 2px 8px;
   background: none;
-  border: 1px solid #8c6a3f;
+  border: 4px solid transparent;
+  border-image: url('@/assets/ui/buttons/ui-btn-primary-normal.png') 6 fill;
   color: #e8e6dc;
   cursor: pointer;
 }
@@ -189,19 +190,19 @@ onUnmounted(() => {
   align-items: center;
   padding: 10px 12px;
   text-align: left;
-  background: #38565c;
-  border: 1px solid #8c6a3f;
+  border: 6px solid transparent;
+  border-image: url('@/assets/ui/buttons/ui-btn-primary-normal.png') 6 fill;
+  image-rendering: pixelated;
   color: #e8e6dc;
   cursor: pointer;
 }
 .card:hover {
-  background: #2a3a5c;
-  border-color: #b08a52;
+  border-image: url('@/assets/ui/buttons/ui-btn-primary-hover.png') 6 fill;
 }
 .card-no {
   color: #e0c070;
-  min-width: 52px;
-  font-size: 14px;
+  min-width: 60px;
+  font-size: 12px;
 }
 .card-body {
   display: grid;
@@ -209,14 +210,14 @@ onUnmounted(() => {
   flex: 1;
 }
 .card-name {
-  font-size: 14px;
+  font-size: 16px;
 }
 .card-name.empty {
-  color: #6b7570;
+  color: #8a938f;
 }
 .card-meta {
-  font-size: 11px;
-  color: #6b7570;
+  font-size: 12px;
+  color: #8a938f;
 }
 .stab {
   display: flex;
@@ -230,12 +231,12 @@ onUnmounted(() => {
 }
 .stab em {
   font-style: normal;
-  font-size: 10px;
-  color: #6b7570;
+  font-size: 12px;
+  color: #8a938f;
 }
 .confirm-title {
   margin: 4px 0 6px;
-  font-size: 15px;
+  font-size: 16px;
   color: #e0c070;
 }
 .confirm-text {
@@ -250,17 +251,20 @@ onUnmounted(() => {
 .confirm-actions button {
   flex: 1;
   padding: 8px 0;
-  background: #38565c;
-  border: 1px solid #8c6a3f;
+  font-family: inherit;
+  font-size: 12px;
+  border: 6px solid transparent;
+  border-image: url('@/assets/ui/buttons/ui-btn-primary-normal.png') 6 fill;
+  image-rendering: pixelated;
   color: #e8e6dc;
   cursor: pointer;
 }
 .confirm-actions button.danger {
-  border-color: #8f2b2b;
+  border-image: url('@/assets/ui/buttons/ui-btn-primary-active.png') 6 fill;
   color: #d97b7b;
 }
 .confirm-actions button:hover {
-  background: #2a3a5c;
+  border-image: url('@/assets/ui/buttons/ui-btn-primary-hover.png') 6 fill;
 }
 .writing {
   display: grid;
@@ -279,7 +283,7 @@ onUnmounted(() => {
 }
 .stage {
   margin: 0;
-  font-size: 13px;
+  font-size: 12px;
   color: #e0c070;
   text-align: center;
   letter-spacing: 2px;

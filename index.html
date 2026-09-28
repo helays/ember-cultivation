@@ -14,6 +14,21 @@
       background: #0d1f27;
       overflow: hidden;
     }
+    /* Pixel Chinese first, hanzi fallbacks behind it (doc/14 §8.1).
+       Font sizes only from the 12/16/24 ladder. */
+    @font-face {
+      font-family: 'Fusion Pixel';
+      src: url('/fonts/fusion-pixel-12px-monospaced-zh_hans.woff2') format('woff2');
+      font-display: swap;
+    }
+    :root {
+      --font-ui: 'Fusion Pixel', 'Zpix', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+    }
+    body {
+      font-family: var(--font-ui);
+      font-size: 12px;
+      -webkit-font-smoothing: none;
+    }
     /* Phaser canvas host and Vue overlay host are siblings so that
        Vue mounting never wipes the game container (doc/13 §2). */
     #game-root, #ui-root {

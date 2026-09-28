@@ -111,15 +111,15 @@ function fmtPlayTime(seconds) {
 .menu-panel {
   min-width: 320px;
   padding: 28px 36px;
-  background: #1d3b45;
-  border: 2px solid #8c6a3f;
-  box-shadow: 0 0 0 2px #0d1f27, 0 8px 24px rgba(0, 0, 0, 0.5);
+  /* 9-slice panel art replaces the flat placeholder block (doc/15 §2.3) */
+  border: 16px solid transparent;
+  border-image: url('@/assets/ui/frames/ui-frame-panel-9slice.png') 16 fill;
+  image-rendering: pixelated;
   color: #e8e6dc;
-  font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
 }
 .title {
   margin: 0 0 4px;
-  font-size: 28px;
+  font-size: 24px;
   letter-spacing: 8px;
   color: #e0c070;
   text-align: center;
@@ -127,7 +127,7 @@ function fmtPlayTime(seconds) {
 .subtitle {
   margin: 0 0 20px;
   font-size: 12px;
-  color: #6b7570;
+  color: #8a938f;
   text-align: center;
   letter-spacing: 2px;
 }
@@ -136,20 +136,25 @@ function fmtPlayTime(seconds) {
   gap: 10px;
 }
 button {
-  padding: 10px 14px;
-  font-size: 15px;
+  padding: 8px 12px;
+  font-size: 16px;
+  font-family: inherit;
   color: #e8e6dc;
-  background: #38565c;
-  border: 1px solid #8c6a3f;
+  border: 6px solid transparent;
+  border-image: url('@/assets/ui/buttons/ui-btn-primary-normal.png') 6 fill;
+  image-rendering: pixelated;
   cursor: pointer;
   text-align: left;
 }
 button:hover:not(:disabled) {
-  background: #2a3a5c;
-  border-color: #b08a52;
+  border-image: url('@/assets/ui/buttons/ui-btn-primary-hover.png') 6 fill;
+}
+button:active:not(:disabled) {
+  border-image: url('@/assets/ui/buttons/ui-btn-primary-active.png') 6 fill;
 }
 button:disabled {
-  opacity: 0.45;
+  border-image: url('@/assets/ui/buttons/ui-btn-primary-disabled.png') 6 fill;
+  opacity: 0.9;
   cursor: default;
 }
 .hint {
@@ -160,7 +165,7 @@ button:disabled {
 .slot-tip {
   margin: 0 0 10px;
   font-size: 12px;
-  color: #6b7570;
+  color: #8a938f;
 }
 .slot-list {
   display: grid;
@@ -173,14 +178,14 @@ button:disabled {
 }
 .slot-no {
   color: #e0c070;
-  min-width: 56px;
+  min-width: 64px;
 }
 .slot-label {
   font-size: 12px;
   color: #b5bdb8;
 }
 .slot-label.empty {
-  color: #6b7570;
+  color: #8a938f;
 }
 .back {
   margin-top: 14px;

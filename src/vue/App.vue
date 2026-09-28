@@ -53,7 +53,7 @@ onUnmounted(() => {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+  font-family: var(--font-ui);
 }
 .ui-overlay.blocking {
   pointer-events: auto;
