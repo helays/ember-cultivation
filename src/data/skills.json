@@ -1,0 +1,62 @@
+[
+  {
+    "id": "skill-huo-qiu",
+    "name": "火球术",
+    "element": "fire",
+    "target": "single",
+    "power": 1.4,
+    "mpCost": 12,
+    "cooldown": 1,
+    "type": "damage",
+    "tier": 1,
+    "maxLevel": 5,
+    "upgradeCost": [1, 2, 4, 8],
+    "req": { "realm": 0 },
+    "desc": "凝聚灵力掷出火球。末法时代最基础的火系术法。"
+  },
+  {
+    "id": "skill-claw",
+    "name": "兽爪撕咬",
+    "element": "none",
+    "target": "single",
+    "power": 1.0,
+    "mpCost": 0,
+    "cooldown": 0,
+    "type": "damage",
+    "tier": 1,
+    "maxLevel": 1,
+    "upgradeCost": [],
+    "req": {},
+    "desc": "野兽的本能撕咬。"
+  },
+  {
+    "id": "skill-yin-feng",
+    "name": "阴风刺骨",
+    "element": "water",
+    "target": "single",
+    "power": 1.1,
+    "mpCost": 0,
+    "cooldown": 0,
+    "type": "damage",
+    "tier": 1,
+    "maxLevel": 1,
+    "upgradeCost": [],
+    "req": {},
+    "desc": "阴魂驱使的湿冷之风。"
+  },
+  {
+    "id": "skill-ju-hun",
+    "name": "聚魂还形",
+    "element": "none",
+    "target": "self",
+    "power": 0.6,
+    "mpCost": 0,
+    "cooldown": 2,
+    "type": "heal",
+    "tier": 1,
+    "maxLevel": 1,
+    "upgradeCost": [],
+    "req": {},
+    "desc": "怨魂聚拢还于己身，恢复少量生命。"
+  }
+]

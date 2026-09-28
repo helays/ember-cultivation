@@ -1,0 +1,13 @@
+[
+  {
+    "id": "enc-qingyun-east",
+    "name": "青云镇东郊草地",
+    "groups": [
+      { "enemies": ["enemy-wolf"], "weight": 30 },
+      { "enemies": ["enemy-zombie"], "weight": 25 },
+      { "enemies": ["enemy-gui-hun"], "weight": 20 },
+      { "enemies": ["enemy-wolf", "enemy-wolf"], "weight": 15 },
+      { "enemies": ["enemy-shi-bing"], "weight": 10 }
+    ]
+  }
+]
