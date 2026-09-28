@@ -158,7 +158,7 @@ export function defaultPayload() {
     equipment: { weapon: null, armor: null, accessory: null },
     hotbar: [null, null, null, null],
     skills: [{ id: 'skill-huo-qiu', level: 1, cd: 0 }],
-    gongfa: { id: null, level: 1, tier: 1 },
+    gongfa: { id: 'gongfa-kunlun-zhengfa', level: 1, tier: 1 },
     relationships: {},
     factions: {
       'fac-kunlun': 0,
@@ -190,6 +190,7 @@ export function defaultPayload() {
       endingsUnlocked: [],
     },
     rngSeed: (Date.now() % 100000000) | 0,
+    daoPoints: 0,
   }
 }
 
@@ -268,6 +269,12 @@ export async function readSlot(slot) {
   const payload = migrate(record.payload)
   const result = validate(payload)
   if (result.level === 'error') {
+    // Bad-save flow (doc/12 §9.2): try the last-good backup before giving up.
+    const recovered = await recover(slot)
+    if (recovered) {
+      logger.warn('saveManager', `slot ${slot} failed validation, recovered from backup`)
+      return { payload: recovered, rev: -1, updatedAt: record.updatedAt, validation: result, recovered: true }
+    }
     const err = new Error(`slot ${slot} failed validation: ${result.issues.join('; ')}`)
     err.code = 'BAD_SAVE'
     throw err
@@ -306,21 +313,71 @@ export async function deleteSlot(slot) {
   await deleteRecord('saves', slot)
 }
 
-/** Pure migration chain (doc/12 §4.2). M1: current version only. */
+/**
+ * Pure migration chain (doc/12 §4.2). Versions `主.次`:
+ *   1.0 -> 1.1: attrs move from flat player fields into `player.attrs`
+ *   1.1 -> 1.2: default-value backfill (stones, codex, hotbar, daoPoints, …)
+ * Failures never drop a save silently: an unknown newer version is kept
+ * as-is (warned) so a downgrade does not eat progress.
+ */
 export function migrate(raw) {
   if (!raw || typeof raw !== 'object') return raw
-  // 1.0 -> 1.1 -> 1.2 steps land here as the structure evolves (M4).
-  return raw
+  let data = raw
+  if (!data.version) return data
+
+  if (compareVersion(data.version, '1.1') < 0) {
+    const p = { ...data.player }
+    if (p.attack !== undefined || p.defense !== undefined || p.speed !== undefined) {
+      p.attrs = {
+        attack: p.attack ?? p.attrs?.attack ?? 8,
+        defense: p.defense ?? p.attrs?.defense ?? 6,
+        speed: p.speed ?? p.attrs?.speed ?? 10,
+      }
+      delete p.attack
+      delete p.defense
+      delete p.speed
+    }
+    data = { ...data, player: p, version: '1.1' }
+  }
+
+  if (compareVersion(data.version, '1.2') < 0) {
+    const defaults = defaultPayload()
+    data = {
+      ...defaults,
+      ...data,
+      player: { ...defaults.player, ...data.player },
+      slotMeta: data.slotMeta ?? defaults.slotMeta,
+      codex: { ...defaults.codex, ...data.codex },
+      version: '1.2',
+    }
+  }
+
+  if (compareVersion(data.version, SAVE_VERSION) > 0) {
+    logger.warn('saveManager', `save version ${data.version} is newer than ${SAVE_VERSION}; kept as-is`)
+  }
+  return data
+}
+
+function compareVersion(a, b) {
+  const [aMajor, aMinor] = String(a).split('.').map(Number)
+  const [bMajor, bMinor] = String(b).split('.').map(Number)
+  if (aMajor !== bMajor) return aMajor - bMajor
+  return aMinor - bMinor
 }
 
 const REQUIRED_TOP = [
   'version', 'saveName', 'timestamp', 'playTime', 'slotMeta', 'player',
   'inventory', 'equipment', 'hotbar', 'skills', 'gongfa', 'relationships',
   'factions', 'questProgress', 'worldFlags', 'unlockedLocations', 'codex',
-  'companions', 'lover', 'homestead', 'newGamePlus', 'ngPlusInherit', 'rngSeed',
+  'companions', 'lover', 'homestead', 'newGamePlus', 'ngPlusInherit', 'rngSeed', 'daoPoints',
 ]
 
-/** Coarse bad-save grading (doc/12 §9.2). Full ten-point check lands in M4. */
+/**
+ * Bad-save grading (doc/12 §9.2) with numeric clamping:
+ *   error — unrecoverable shape (missing core blocks)
+ *   warn  — recoverable issues; out-of-range numbers are clamped in place
+ *   ok    — clean
+ */
 export function validate(data) {
   const issues = []
   if (!data || typeof data !== 'object') {
@@ -329,22 +386,42 @@ export function validate(data) {
   for (const field of REQUIRED_TOP) {
     if (!(field in data)) issues.push(`missing top-level field: ${field}`)
   }
-  if (data.player) {
+  if (!data.player || typeof data.player !== 'object') {
+    issues.push('missing player block')
+  } else {
     if (!data.player.position) issues.push('missing player.position')
     if (!data.player.time) issues.push('missing player.time')
     if (typeof data.player.realmIndex !== 'number') issues.push('missing player.realmIndex')
+    // Numeric clamps (in place, doc/12 §9.2 数值夹取).
+    const p = data.player
+    const clampNum = (key, lo, hi, fallback) => {
+      if (typeof p[key] !== 'number' || Number.isNaN(p[key])) {
+        p[key] = fallback
+        issues.push(`clamped ${key} to ${fallback}`)
+      } else {
+        p[key] = Math.min(hi, Math.max(lo, p[key]))
+      }
+    }
+    clampNum('hp', 0, Math.max(1, p.maxHp ?? 9999), Math.max(1, p.maxHp ?? 100))
+    clampNum('mp', 0, Math.max(0, p.maxMp ?? 9999), p.maxMp ?? 50)
+    clampNum('mind', 0, 100, 70)
+    clampNum('stones', 0, 99999999, 50)
+    clampNum('exp', 0, 9999999999, 0)
+    p.realmIndex = Math.min(10, Math.max(0, Math.round(p.realmIndex ?? 0)))
+    p.stageIndex = Math.min(4, Math.max(1, Math.round(p.stageIndex ?? 1)))
   }
   if (data.slotMeta && data.slotMeta.checksum) {
     if (checksumOf(data) !== data.slotMeta.checksum) data.slotMeta.tampered = true
   }
-  const hard = issues.some((i) => i.startsWith('missing top-level') || i.startsWith('payload'))
+  const hard = issues.some((i) => i.startsWith('missing top-level') || i.startsWith('missing player') || i.startsWith('payload'))
   return { level: hard ? 'error' : issues.length ? 'warn' : 'ok', issues }
 }
 
-/** Backup recovery (doc/12 §9.3). Skeleton for M1: exposes whether a last-good backup exists. */
-export async function recover() {
+/** Backup recovery (doc/12 §9.3): return the last-good payload for a slot. */
+export async function recover(slot) {
   const lastGood = await getRecord('backup', 'bk-last-good')
-  return { hasBackup: !!lastGood, slot: lastGood?.slot ?? null }
+  if (lastGood?.payload) return migrate(lastGood.payload)
+  return null
 }
 
 /** Boot-time WAL cleanup: interrupted writes leave `<slot>/pending` markers (doc/12 §1.4). */
