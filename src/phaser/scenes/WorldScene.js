@@ -2,7 +2,9 @@ import Phaser from 'phaser'
 import { bus, EVT } from '@/core/bus.js'
 import { TILE_SIZE } from '@/core/constants.js'
 import { composeSave, writeSlot } from '@/core/saveManager.js'
-import { rollEncounter } from '@/core/registry.js'
+import { rollEncounter, listTable, getItem } from '@/core/registry.js'
+import { EventTriggerSystem } from '../systems/EventTriggerSystem.js'
+import { Npc } from '../entities/Npc.js'
 import { logger } from '@/core/logger.js'
 import { MapLoader } from '../systems/MapLoader.js'
 import { MovementSystem } from '../systems/MovementSystem.js'
@@ -45,6 +47,12 @@ export class WorldScene extends Phaser.Scene {
     this.timeSystem = new TimeSystem(this.session?.time ?? defaultTime())
     this.timeSystem.onShichenChange = (time) => this.applyDayNight(time)
     this.encounterSystem = new EncounterSystem(this, this.player, loaded.encounterZones)
+    this.eventTriggers = new EventTriggerSystem(this, this.player, loaded.events)
+
+    // NPC placement from the table (registry indexes by home map).
+    this.npcs = listTable('npcs')
+      .filter((def) => def.home === (this.session?.location ?? 'map-qingyun'))
+      .map((def) => new Npc(this, def))
 
     const cam = this.cameras.main
     cam.setBounds(0, 0, loaded.pixelWidth, loaded.pixelHeight)
@@ -66,6 +74,13 @@ export class WorldScene extends Phaser.Scene {
     // BattleScene, resume on battle:end with push-away + invulnerability.
     bus.on(EVT.BATTLE_END, this.onBattleEnd)
 
+    // Menu/quest-side battles (心魔 etc.): battle:summon carries enemy ids.
+    bus.on(EVT.BATTLE_SUMMON, this.onBattleSummon)
+
+    // Dialog freeze pair (doc/13 §3.2 single-blocking-UI).
+    bus.on(EVT.DIALOG_OPEN, this.onDialogOpen)
+    bus.on(EVT.DIALOG_CLOSE, this.onDialogClose)
+
     // Dev-only shortcut into the asset gallery (doc/14 §4.4).
     if (import.meta.env.DEV) {
       this.input.keyboard.on('keydown-BACKTICK', () => this.scene.start('AssetPreviewScene'))
@@ -75,6 +90,10 @@ export class WorldScene extends Phaser.Scene {
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       bus.off(EVT.SAVE_REQUEST, this.onSaveRequest)
       bus.off(EVT.BATTLE_END, this.onBattleEnd)
+      bus.off(EVT.BATTLE_SUMMON, this.onBattleSummon)
+      bus.off(EVT.DIALOG_OPEN, this.onDialogOpen)
+      bus.off(EVT.DIALOG_CLOSE, this.onDialogClose)
+      for (const npc of this.npcs ?? []) npc.destroy()
     })
 
     this.scene.launch('UIScene')
@@ -85,10 +104,16 @@ export class WorldScene extends Phaser.Scene {
     this.nightTint?.setVisible(TimeSystem.isNight(time))
   }
 
-  /** E-key interaction: nearest interact object with a savePoint opens the panel. */
+  /** E-key interaction: NPCs first, then save points (doc/02 §2.3 priority). */
   tryInteract() {
     if (this.frozen) return
     const body = this.player.body.center
+    for (const npc of this.npcs ?? []) {
+      if (npc.contains(body.x, body.y, TILE_SIZE * 1.5)) {
+        bus.emit(EVT.DIALOG_OPEN, { npcId: npc.def.id })
+        return
+      }
+    }
     for (const obj of this.mapData.interactables) {
       const cx = obj.x + obj.width / 2
       const cy = obj.y + obj.height / 2
@@ -98,6 +123,14 @@ export class WorldScene extends Phaser.Scene {
         return
       }
     }
+  }
+
+  onDialogOpen = () => this.freeze()
+  onDialogClose = () => this.unfreeze()
+
+  /** Menu/quest-side battle request (battle:summon, doc/13 §3.2). */
+  onBattleSummon = ({ enemies }) => {
+    if (enemies?.length) this.launchBattle(enemies)
   }
 
   freeze() {
@@ -118,12 +151,26 @@ export class WorldScene extends Phaser.Scene {
   startBattle(encounterTable) {
     if (this.inBattle || this.frozen) return
     if (!encounterTable) return
+    this.launchBattle(rollEncounter(encounterTable))
+  }
+
+  /** Common battle entry: roll handled by caller, allies read from stores. */
+  launchBattle(enemyIds) {
+    if (this.inBattle || this.frozen) return
+    if (!enemyIds?.length) return
     this.inBattle = true
     this.freeze()
 
-    const enemyIds = rollEncounter(encounterTable)
     const payload = composeSave()
     const p = payload?.player
+    // Fold equipment bonuses into combat attrs (doc/02 §5 equipAttrs).
+    const gear = { attack: 0, defense: 0 }
+    for (const id of Object.values(payload?.equipment ?? {})) {
+      if (!id) continue
+      const def = getItem(id)
+      gear.attack += def?.equipAttrs?.attack ?? 0
+      gear.defense += def?.equipAttrs?.defense ?? 0
+    }
     const allies = p
       ? [{
           id: 'player',
@@ -132,8 +179,8 @@ export class WorldScene extends Phaser.Scene {
           maxHp: p.maxHp,
           mp: p.mp,
           maxMp: p.maxMp,
-          atk: p.attrs.attack,
-          def: p.attrs.defense,
+          atk: p.attrs.attack + gear.attack,
+          def: p.attrs.defense + gear.defense,
           spd: p.attrs.speed,
           shenshi: p.shenshi,
           spiritualRoot: p.spiritualRoot,
@@ -141,7 +188,7 @@ export class WorldScene extends Phaser.Scene {
           skillLevels: Object.fromEntries((payload.skills ?? []).map((s) => [s.id, s.level ?? 1])),
         }]
       : []
-    if (!allies.length || !enemyIds.length) {
+    if (!allies.length) {
       this.inBattle = false
       this.unfreeze()
       return

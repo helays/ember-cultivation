@@ -1,0 +1,55 @@
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #e0c070;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+.plain {
+  padding: 2px 8px;
+  background: none;
+  border: 4px solid transparent;
+  border-image: url('@/assets/ui/buttons/ui-btn-primary-normal.png') 6 fill;
+  color: #e8e6dc;
+  cursor: pointer;
+}
+.panel-wrap {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(13, 31, 39, 0.55);
+  pointer-events: auto;
+  font-family: var(--font-ui);
+}
+.panel {
+  width: 460px;
+  max-width: 92vw;
+  max-height: 86vh;
+  overflow-y: auto;
+  padding: 16px 20px 20px;
+  border: 16px solid transparent;
+  border-image: url('@/assets/ui/frames/ui-frame-panel-9slice.png') 16 fill;
+  image-rendering: pixelated;
+  color: #e8e6dc;
+}
+button.action {
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 12px;
+  border: 6px solid transparent;
+  border-image: url('@/assets/ui/buttons/ui-btn-primary-normal.png') 6 fill;
+  image-rendering: pixelated;
+  color: #e8e6dc;
+  cursor: pointer;
+}
+button.action:hover:not(:disabled) {
+  border-image: url('@/assets/ui/buttons/ui-btn-primary-hover.png') 6 fill;
+}
+button.action:disabled {
+  opacity: 0.45;
+  cursor: default;
+}

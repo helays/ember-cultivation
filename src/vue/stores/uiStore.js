@@ -8,21 +8,33 @@ export const useUiStore = defineStore('ui', {
     phase: 'menu',
     blocking: false,
     openMenu: null,
-    dialog: null,
+    dialogOpen: false,
     toasts: [],
   }),
   actions: {
     openUi(menu) {
+      if (this.dialogOpen) return
       this.openMenu = menu
       this.blocking = true
     },
     closeUi() {
       this.openMenu = null
+      this.dialogOpen = false
       this.blocking = false
     },
     toggleMenu(menu) {
+      if (this.dialogOpen) return
       if (this.openMenu === menu) this.closeUi()
       else this.openUi(menu)
+    },
+    openDialog() {
+      if (this.openMenu || this.dialogOpen) return
+      this.dialogOpen = true
+      this.blocking = true
+    },
+    closeDialog() {
+      this.dialogOpen = false
+      this.blocking = !!this.openMenu
     },
     pushToast({ text, level = 'info' }) {
       const id = Date.now() + Math.random()

@@ -5,6 +5,12 @@ import { useUiStore } from './stores/uiStore.js'
 import MainMenu from './components/MainMenu.vue'
 import SavePanel from './components/SavePanel.vue'
 import BattleCommand from './components/BattleCommand.vue'
+import Inventory from './components/Inventory.vue'
+import SkillPanel from './components/SkillPanel.vue'
+import QuestLog from './components/QuestLog.vue'
+import Codex from './components/Codex.vue'
+import DialogBox from './components/DialogBox.vue'
+import { initEventBridge } from './eventBridge.js'
 
 const ui = useUiStore()
 
@@ -12,22 +18,34 @@ function onToast(payload) {
   ui.pushToast(payload)
 }
 
-// menu:toggle is the single open/close channel for panels; SavePanel emits it
-// on close, Phaser emits it from in-world save points (E key).
+// menu:toggle is the single open/close channel for panels; components emit it
+// on close, keys below emit it to open.
 function onMenuToggle({ menu }) {
-  if (menu === 'save') ui.toggleMenu('save')
+  ui.toggleMenu(menu)
+}
+
+// Panel hotkeys (world phase only, no blocking UI on top).
+const MENU_KEYS = {
+  KeyI: 'inventory',
+  KeyK: 'skills',
+  KeyJ: 'quests',
+  KeyL: 'codex',
+  Escape: 'save',
 }
 
 function onKeydown(event) {
-  if (event.key !== 'Escape') return
   if (ui.phase !== 'world') return
-  bus.emit(EVT.MENU_TOGGLE, { menu: 'save' })
+  if (ui.dialogOpen) return
+  const menu = MENU_KEYS[event.code]
+  if (!menu) return
+  bus.emit(EVT.MENU_TOGGLE, { menu })
 }
 
 onMounted(() => {
   bus.on(EVT.TOAST, onToast)
   bus.on(EVT.MENU_TOGGLE, onMenuToggle)
   window.addEventListener('keydown', onKeydown)
+  initEventBridge()
 })
 
 onUnmounted(() => {
@@ -43,10 +61,16 @@ onUnmounted(() => {
   <div class="ui-overlay" :class="{ blocking: ui.blocking }">
     <MainMenu v-if="ui.phase === 'menu'" />
     <SavePanel v-if="ui.openMenu === 'save'" />
+    <Inventory v-if="ui.openMenu === 'inventory'" />
+    <SkillPanel v-if="ui.openMenu === 'skills'" />
+    <QuestLog v-if="ui.openMenu === 'quests'" />
+    <Codex v-if="ui.openMenu === 'codex'" />
     <BattleCommand />
+    <DialogBox />
     <div class="toasts">
       <div v-for="t in ui.toasts" :key="t.id" class="toast" :class="t.level">{{ t.text }}</div>
     </div>
+    <div v-if="ui.phase === 'world'" class="hint">I 背包 · K 修行 · J 任务 · L 图鉴 · E 交互 · Esc 存档</div>
   </div>
 </template>
 
@@ -71,7 +95,7 @@ onUnmounted(() => {
 }
 .toast {
   padding: 6px 16px;
-  font-size: 13px;
+  font-size: 12px;
   color: #e8e6dc;
   background: rgba(29, 59, 69, 0.92);
   border: 1px solid #8c6a3f;
@@ -84,5 +108,12 @@ onUnmounted(() => {
 .toast.error {
   border-color: #8f2b2b;
   color: #d97b7b;
+}
+.hint {
+  position: fixed;
+  right: 12px;
+  bottom: 8px;
+  font-size: 12px;
+  color: rgba(107, 117, 112, 0.85);
 }
 </style>
