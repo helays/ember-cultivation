@@ -1,0 +1,33 @@
+{
+  "name": "ember-cultivation",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "末法仙途 — 2D single-player browser cultivation RPG (see doc/ for the design canon)",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "validate": "node runtime/tools/validate.js",
+    "assets": "node scripts/build-assets.mjs",
+    "assets:check": "node scripts/build-assets.mjs --check"
+  },
+  "dependencies": {
+    "idb": "^8.0.0",
+    "mitt": "^3.0.1",
+    "phaser": "^3.80.0",
+    "pinia": "^2.1.7",
+    "vue": "^3.4.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.0",
+    "vite": "^5.4.0",
+    "vite-plugin-pwa": "^0.19.8"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "vue-demi"
+    ]
+  }
+}

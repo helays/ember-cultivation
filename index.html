@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>末法仙途</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png" />
+  <style>
+    /* Ink #0d1f27 = palette index 1 (see src/assets/palette.json) */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #0d1f27;
+      overflow: hidden;
+    }
+    /* Phaser canvas host and Vue overlay host are siblings so that
+       Vue mounting never wipes the game container (doc/13 §2). */
+    #game-root, #ui-root {
+      position: fixed;
+      inset: 0;
+    }
+    /* Pixel-perfect upscaling, see doc/14 §8.6 */
+    canvas {
+      image-rendering: pixelated;
+      image-rendering: -webkit-optimize-contrast;
+    }
+  </style>
+</head>
+<body>
+  <div id="game-root"></div>
+  <div id="ui-root"></div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
