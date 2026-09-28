@@ -28,6 +28,13 @@ window.addEventListener('beforeunload', () => {
 
 const game = new Phaser.Game(createPhaserConfig('game-root'))
 
+// Debug asset gallery: dev-only, dynamically imported so production builds
+// never bundle it (doc/14 §4.4).
+if (import.meta.env.DEV) {
+  const { AssetPreviewScene } = await import('./phaser/scenes/AssetPreviewScene.js')
+  game.scene.add('AssetPreviewScene', AssetPreviewScene)
+}
+
 // The game instance must stay out of Vue reactivity; dev-only handle so the
 // console can reach it while tuning scenes.
 if (import.meta.env.DEV) window.__game = game

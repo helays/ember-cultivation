@@ -17,7 +17,10 @@ export class WorldScene extends Phaser.Scene {
   }
 
   init(data) {
-    this.session = data?.state ?? null
+    // Restore from game:start data, or from the registry when returning
+    // from the dev-only AssetPreviewScene.
+    this.session = data?.state ?? this.game.registry.get('session') ?? null
+    if (data?.state) this.game.registry.set('session', data.state)
   }
 
   preload() {
@@ -56,6 +59,11 @@ export class WorldScene extends Phaser.Scene {
     // Save flow: freeze -> compose payload (Vue stores) -> inject live
     // position/time -> write -> announce (doc/12 §10.2).
     bus.on(EVT.SAVE_REQUEST, this.onSaveRequest)
+
+    // Dev-only shortcut into the asset gallery (doc/14 §4.4).
+    if (import.meta.env.DEV) {
+      this.input.keyboard.on('keydown-BACKTICK', () => this.scene.start('AssetPreviewScene'))
+    }
 
     this.scene.launch('UIScene')
     logger.info('WorldScene', `world ready at ${loaded.mapName}`)
