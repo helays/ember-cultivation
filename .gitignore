@@ -30,6 +30,7 @@ pnpm-debug.log*
 /.idea/
 .vscode/*
 !.vscode/extensions.json
+.zcode/
 
 # ── 操作系统 ──────────────────────────────────────────────────
 .DS_Store

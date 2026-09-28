@@ -83,8 +83,8 @@ pnpm assets        # 重建素材并校验（scripts/build-assets.mjs，见 doc/
 pnpm assets:check  # 只校验素材、不重新生成（CI 用）
 ```
 
-> 当前仓库**尚未初始化工程**（无 `package.json`），上述 pnpm 命令在阶段 M0 落地后生效。
-> **在此之前，素材生产线可直接用 node 运行**（零第三方依赖）：
+> 工程已在 M0 初始化（Vite 5 + Vue 3 + Phaser 3.80，见 doc/15 §2.1），上述 pnpm 命令均可直接使用。
+> 素材生产线本身零第三方依赖，也可不经 pnpm 直接运行：
 > `node scripts/build-assets.mjs`（重建 + 校验）、`node scripts/build-assets.mjs --check`（只校验）、
 > `node scripts/inspect-png.mjs <文件> --crop x,y,w,h`（打印 ASCII 预览与接缝指标）。
 > 见 [doc/15](doc/15-开发路线图与里程碑.md)。
