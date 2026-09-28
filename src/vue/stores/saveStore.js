@@ -29,12 +29,17 @@ export const useSaveStore = defineStore('save', {
         ...base,
         saveName: `${player.realm}${player.stage}`,
         player: playerBlock,
+        skills: JSON.parse(JSON.stringify(player.skills)),
+        codex: JSON.parse(JSON.stringify(player.codex)),
         unlockedLocations: [...world.unlockedLocations],
       }
     },
     /** Distribute a loaded payload into stores. */
     applyPayload(payload) {
-      usePlayerStore().fromSave(payload.player)
+      const player = usePlayerStore()
+      player.fromSave(payload.player)
+      player.skills = JSON.parse(JSON.stringify(payload.skills ?? []))
+      player.codex = { ...{ yaoguai: [], fabao: [], gongfa: [], liaozhai: [], endings: [] }, ...JSON.parse(JSON.stringify(payload.codex ?? {})) }
       useWorldStore().fromSave(payload.player)
     },
   },

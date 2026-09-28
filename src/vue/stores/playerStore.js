@@ -12,6 +12,7 @@ export const usePlayerStore = defineStore('player', {
     realmIndex: 0,
     stageIndex: 1,
     exp: 0,
+    stones: 50,
     hp: 100,
     maxHp: 100,
     mp: 50,
@@ -22,6 +23,8 @@ export const usePlayerStore = defineStore('player', {
     gengu: 5,
     shenshi: 5,
     spiritualRoot: ['火'],
+    skills: [{ id: 'skill-huo-qiu', level: 1, cd: 0 }],
+    codex: { yaoguai: [], fabao: [], gongfa: [], liaozhai: [], endings: [] },
   }),
   getters: {
     realm: (state) => REALM_NAMES[state.realmIndex] ?? REALM_NAMES[0],
@@ -36,6 +39,7 @@ export const usePlayerStore = defineStore('player', {
         stage: this.stage,
         stageIndex: this.stageIndex,
         exp: this.exp,
+        stones: this.stones,
         hp: this.hp,
         maxHp: this.maxHp,
         mp: this.mp,
@@ -53,6 +57,7 @@ export const usePlayerStore = defineStore('player', {
       this.realmIndex = player.realmIndex
       this.stageIndex = player.stageIndex
       this.exp = player.exp
+      this.stones = player.stones ?? 50
       this.hp = player.hp
       this.maxHp = player.maxHp
       this.mp = player.mp
@@ -63,6 +68,29 @@ export const usePlayerStore = defineStore('player', {
       this.gengu = player.gengu
       this.shenshi = player.shenshi
       this.spiritualRoot = [...player.spiritualRoot]
+    },
+    /** Battle end application (doc/02 §3.6): rewards on win, penalties on lose. */
+    applyBattleResult({ result, rewards, allies }) {
+      const me = allies?.find((a) => a.id === 'player')
+      if (me) {
+        this.hp = Math.max(1, me.hp)
+        this.mp = me.mp
+      }
+      if (result === 'win') {
+        this.exp += rewards.exp ?? 0
+        this.stones += rewards.stones ?? 0
+        for (const kill of rewards.kills ?? []) {
+          if (!this.codex.yaoguai.includes(kill)) this.codex.yaoguai.push(kill)
+        }
+      } else if (result === 'lose') {
+        this.stones = Math.max(0, Math.floor(this.stones * 0.9))
+        this.mind = Math.max(0, this.mind - 5)
+        this.hp = this.maxHp
+        this.mp = this.maxMp
+      }
+    },
+    gainExp(amount) {
+      this.exp += amount
     },
   },
 })

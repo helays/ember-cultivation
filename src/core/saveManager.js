@@ -128,6 +128,7 @@ export function defaultPayload() {
       stage: '初期',
       stageIndex: 1,
       exp: 0,
+      stones: 50,
       hp: 100,
       maxHp: 100,
       mp: 50,
@@ -156,7 +157,7 @@ export function defaultPayload() {
     inventory: { capacity: 24, items: [] },
     equipment: { weapon: null, armor: null, accessory: null },
     hotbar: [null, null, null, null],
-    skills: [],
+    skills: [{ id: 'skill-huo-qiu', level: 1, cd: 0 }],
     gongfa: { id: null, level: 1, tier: 1 },
     relationships: {},
     factions: {

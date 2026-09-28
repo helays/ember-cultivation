@@ -4,6 +4,7 @@ import { bus, EVT } from '@/core/bus.js'
 import { useUiStore } from './stores/uiStore.js'
 import MainMenu from './components/MainMenu.vue'
 import SavePanel from './components/SavePanel.vue'
+import BattleCommand from './components/BattleCommand.vue'
 
 const ui = useUiStore()
 
@@ -42,6 +43,7 @@ onUnmounted(() => {
   <div class="ui-overlay" :class="{ blocking: ui.blocking }">
     <MainMenu v-if="ui.phase === 'menu'" />
     <SavePanel v-if="ui.openMenu === 'save'" />
+    <BattleCommand />
     <div class="toasts">
       <div v-for="t in ui.toasts" :key="t.id" class="toast" :class="t.level">{{ t.text }}</div>
     </div>
