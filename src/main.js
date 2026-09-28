@@ -4,12 +4,27 @@ import Phaser from 'phaser'
 import App from './vue/App.vue'
 import { createPhaserConfig } from './phaser/config.js'
 import { logger } from './core/logger.js'
+import { setPayloadComposer, composeSave, writeSlot } from './core/saveManager.js'
+import { useSaveStore } from './vue/stores/saveStore.js'
+import { useUiStore } from './vue/stores/uiStore.js'
 
 // Two runtimes share the page but never share modules: Vue owns #ui-root,
 // Phaser owns #game-root. All cross-layer traffic goes through core/bus.js.
+const pinia = createPinia()
 const app = createApp(App)
-app.use(createPinia())
+app.use(pinia)
 app.mount('#ui-root')
+
+// Composition root wires the Vue-side payload composer into core so Phaser
+// scenes can build save payloads without importing Pinia (doc/12 §10.3).
+setPayloadComposer(() => useSaveStore(pinia).buildPayload())
+
+// slot-auto skeleton (doc/15 §2.2): best-effort hidden auto-backup on exit.
+window.addEventListener('beforeunload', () => {
+  if (useUiStore(pinia).phase !== 'world') return
+  const payload = composeSave()
+  if (payload) writeSlot('slot-auto', payload)
+})
 
 const game = new Phaser.Game(createPhaserConfig('game-root'))
 

@@ -7,6 +7,7 @@ export const bus = mitt()
 // string literals elsewhere are a lint-level error. Payload contracts for
 // each entry live in doc/13 §3.2 and must not be invented ad hoc.
 export const EVT = {
+  GAME_START: 'game:start',
   DIALOG_OPEN: 'dialog:open',
   DIALOG_CHOICE: 'dialog:choice',
   DIALOG_CLOSE: 'dialog:close',
