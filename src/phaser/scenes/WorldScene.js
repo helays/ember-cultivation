@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import { bus, EVT } from '@/core/bus.js'
 import { TILE_SIZE } from '@/core/constants.js'
 import { composeSave, writeSlot } from '@/core/saveManager.js'
+import { rollEncounter } from '@/core/registry.js'
 import { logger } from '@/core/logger.js'
 import { MapLoader } from '../systems/MapLoader.js'
 import { MovementSystem } from '../systems/MovementSystem.js'
@@ -31,6 +32,7 @@ export class WorldScene extends Phaser.Scene {
 
   create() {
     this.frozen = false
+    this.inBattle = false
 
     const loaded = this.mapLoader.create(this.session?.location ?? 'map-qingyun')
     this.mapData = loaded
@@ -60,10 +62,20 @@ export class WorldScene extends Phaser.Scene {
     // position/time -> write -> announce (doc/12 §10.2).
     bus.on(EVT.SAVE_REQUEST, this.onSaveRequest)
 
+    // Battle flow (doc/02 §3.1): freeze world, hand allies/enemies to
+    // BattleScene, resume on battle:end with push-away + invulnerability.
+    bus.on(EVT.BATTLE_END, this.onBattleEnd)
+
     // Dev-only shortcut into the asset gallery (doc/14 §4.4).
     if (import.meta.env.DEV) {
       this.input.keyboard.on('keydown-BACKTICK', () => this.scene.start('AssetPreviewScene'))
     }
+
+    // Scene restarts (gallery round-trips, reloads) must not stack listeners.
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      bus.off(EVT.SAVE_REQUEST, this.onSaveRequest)
+      bus.off(EVT.BATTLE_END, this.onBattleEnd)
+    })
 
     this.scene.launch('UIScene')
     logger.info('WorldScene', `world ready at ${loaded.mapName}`)
@@ -100,6 +112,98 @@ export class WorldScene extends Phaser.Scene {
     this.frozen = false
     this.physics.world.resume()
     this.timeSystem.resume()
+  }
+
+  /** Enter battle from an encounter table (doc/02 §3.1). */
+  startBattle(encounterTable) {
+    if (this.inBattle || this.frozen) return
+    if (!encounterTable) return
+    this.inBattle = true
+    this.freeze()
+
+    const enemyIds = rollEncounter(encounterTable)
+    const payload = composeSave()
+    const p = payload?.player
+    const allies = p
+      ? [{
+          id: 'player',
+          name: p.name,
+          hp: p.hp,
+          maxHp: p.maxHp,
+          mp: p.mp,
+          maxMp: p.maxMp,
+          atk: p.attrs.attack,
+          def: p.attrs.defense,
+          spd: p.attrs.speed,
+          shenshi: p.shenshi,
+          spiritualRoot: p.spiritualRoot,
+          skills: (payload.skills ?? []).map((s) => s.id),
+          skillLevels: Object.fromEntries((payload.skills ?? []).map((s) => [s.id, s.level ?? 1])),
+        }]
+      : []
+    if (!allies.length || !enemyIds.length) {
+      this.inBattle = false
+      this.unfreeze()
+      return
+    }
+
+    bus.emit(EVT.BATTLE_START, { enemies: enemyIds, allies, bgm: 'bgm-battle-normal' })
+    this.scene.launch('BattleScene', { allies, enemyIds })
+  }
+
+  onBattleEnd = ({ result }) => {
+    this.scene.stop('BattleScene')
+    this.inBattle = false
+    // Every battle costs one shichen, win or lose (doc/12 §7.3).
+    this.timeSystem.advance(1)
+    this.unfreeze()
+
+    if (result === 'win' || result === 'flee') {
+      // Push the player OUT of the encounter zone and re-arm the
+      // invulnerability window — a long battle outlasts the cooldown set
+      // at battle start, so it must be reset here (doc/02 §3.1).
+      this.pushAwayFromEncounter()
+      this.encounterSystem.cooldownUntil = this.time.now + 8000
+    } else if (result === 'lose') {
+      // Revive at the save point; penalties are applied Vue-side on the same
+      // battle:end event (doc/02 §3.6).
+      const savePoint = this.mapData.interactables.find((o) => o.props?.savePoint)
+      const spawn = savePoint
+        ? { x: savePoint.x + (savePoint.width ?? 32) / 2, y: savePoint.y + (savePoint.height ?? 32) + 40 }
+        : this.mapData.playerSpawn
+      this.player.setPosition(spawn.x, spawn.y)
+      this.encounterSystem.cooldownUntil = this.time.now + 8000
+    }
+  }
+
+  /** Move the player fully outside the encounter zone they are standing in. */
+  pushAwayFromEncounter() {
+    const body = this.player.body.center
+    const zone = this.encounterSystem.insideAnyZone(body.x, body.y)
+    if (!zone) return
+    let cx = body.x
+    let cy = body.y
+    if (zone.polygon) {
+      const points = zone.polygon.points
+      cx = points.reduce((s, p) => s + p.x, 0) / points.length
+      cy = points.reduce((s, p) => s + p.y, 0) / points.length
+    } else {
+      cx = zone.x
+      cy = zone.y
+    }
+    const angle = Math.atan2(body.y - cy, body.x - cx)
+    // Step outward until clear of the zone (or a sane cap), then add margin.
+    const inside = (x, y) => this.encounterSystem.insideAnyZone(x, y)
+    let dist = 16
+    let x = body.x
+    let y = body.y
+    while (dist <= 400) {
+      x = cx + Math.cos(angle) * dist
+      y = cy + Math.sin(angle) * dist
+      if (!inside(x, y)) break
+      dist += 16
+    }
+    this.player.setPosition(x, y)
   }
 
   onSaveRequest = ({ slot }) => {
