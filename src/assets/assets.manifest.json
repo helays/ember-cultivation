@@ -11,348 +11,589 @@
       "id": "tileset-town-ground",
       "path": "src/assets/tilesets/town/tileset-town-ground.png",
       "kind": "tile",
-      "spec": { "width": 128, "height": 128, "cell": 32, "columns": 4, "rows": 4 },
+      "spec": {
+        "width": 128,
+        "height": 128,
+        "cell": 32,
+        "columns": 4,
+        "rows": 4
+      },
       "source": "L0",
       "generator": "scripts/gen-tiles.mjs",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["town", "ground", "flagstone", "dirt", "grass", "mossy-stone"]
+      "tags": [
+        "town",
+        "ground",
+        "flagstone",
+        "dirt",
+        "grass",
+        "mossy-stone"
+      ]
     },
     {
       "id": "particle-spirit",
       "path": "src/assets/vfx/particles/particle-spirit.png",
       "kind": "particle",
-      "spec": { "width": 16, "height": 16 },
+      "spec": {
+        "width": 16,
+        "height": 16
+      },
       "source": "L1",
       "generator": "scripts/render-pixels.mjs",
       "sourceFile": "src/assets/pixel/vfx/particle-spirit.px.txt",
       "status": "final",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["vfx", "particle", "spirit", "cultivate"]
+      "tags": [
+        "vfx",
+        "particle",
+        "spirit",
+        "cultivate"
+      ]
     },
-
     {
       "id": "tileset-town-building",
       "path": "src/assets/tilesets/town/tileset-town-building.png",
       "kind": "tile",
-      "spec": { "width": 128, "height": 128, "cell": 32, "columns": 4, "rows": 4 },
+      "spec": {
+        "width": 128,
+        "height": 128,
+        "cell": 32,
+        "columns": 4,
+        "rows": 4
+      },
       "source": "L0",
       "generator": "scripts/gen-tiles.mjs",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["town", "building", "wall", "roof", "door", "window"]
+      "tags": [
+        "town",
+        "building",
+        "wall",
+        "roof",
+        "door",
+        "window"
+      ]
     },
     {
       "id": "tileset-town-deco",
       "path": "src/assets/tilesets/town/tileset-town-deco.png",
       "kind": "tile",
-      "spec": { "width": 128, "height": 128, "cell": 32, "columns": 4, "rows": 4 },
+      "spec": {
+        "width": 128,
+        "height": 128,
+        "cell": 32,
+        "columns": 4,
+        "rows": 4
+      },
       "source": "L0",
       "generator": "scripts/gen-tiles.mjs",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["town", "deco", "barrel", "crate", "lantern", "sign"]
+      "tags": [
+        "town",
+        "deco",
+        "barrel",
+        "crate",
+        "lantern",
+        "sign"
+      ]
     },
     {
       "id": "tileset-wilderness-ground",
       "path": "src/assets/tilesets/wilderness/tileset-wilderness-ground.png",
       "kind": "tile",
-      "spec": { "width": 128, "height": 128, "cell": 32, "columns": 4, "rows": 4 },
+      "spec": {
+        "width": 128,
+        "height": 128,
+        "cell": 32,
+        "columns": 4,
+        "rows": 4
+      },
       "source": "L0",
       "generator": "scripts/gen-tiles.mjs",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["wilderness", "ground", "path", "grass", "rock", "dirt"]
+      "tags": [
+        "wilderness",
+        "ground",
+        "path",
+        "grass",
+        "rock",
+        "dirt"
+      ]
     },
     {
       "id": "tileset-dungeon-ground",
       "path": "src/assets/tilesets/dungeon/tileset-dungeon-ground.png",
       "kind": "tile",
-      "spec": { "width": 128, "height": 128, "cell": 32, "columns": 4, "rows": 4 },
+      "spec": {
+        "width": 128,
+        "height": 128,
+        "cell": 32,
+        "columns": 4,
+        "rows": 4
+      },
       "source": "L0",
       "generator": "scripts/gen-tiles.mjs",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["dungeon", "ground", "brick", "spirit-vein", "crack"]
+      "tags": [
+        "dungeon",
+        "ground",
+        "brick",
+        "spirit-vein",
+        "crack"
+      ]
     },
     {
       "id": "tileset-dungeon-wall",
       "path": "src/assets/tilesets/dungeon/tileset-dungeon-wall.png",
       "kind": "tile",
-      "spec": { "width": 128, "height": 128, "cell": 32, "columns": 4, "rows": 4 },
+      "spec": {
+        "width": 128,
+        "height": 128,
+        "cell": 32,
+        "columns": 4,
+        "rows": 4
+      },
       "source": "L0",
       "generator": "scripts/gen-tiles.mjs",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["dungeon", "wall", "top", "face", "corner"]
+      "tags": [
+        "dungeon",
+        "wall",
+        "top",
+        "face",
+        "corner"
+      ]
     },
-
     {
       "id": "sprite-player-walk-4dir",
       "path": "src/assets/sprites/player/sprite-player-walk-4dir.png",
       "kind": "sprite",
-      "spec": { "width": 128, "height": 192, "cell": 32, "frameHeight": 48, "columns": 4, "rows": 4, "fps": 8 },
+      "spec": {
+        "width": 128,
+        "height": 192,
+        "cell": 32,
+        "frameHeight": 48,
+        "columns": 4,
+        "rows": 4,
+        "fps": 8
+      },
       "source": "L1",
       "generator": "scripts/render-pixels.mjs",
       "atlas": "src/assets/pixel/player/sprite-player-walk-4dir.atlas.json",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["player", "walk", "4dir", "frames16"]
+      "tags": [
+        "player",
+        "walk",
+        "4dir",
+        "frames16"
+      ]
     },
-
     {
       "id": "ui-frame-panel-9slice",
       "path": "src/assets/ui/frames/ui-frame-panel-9slice.png",
       "kind": "ui",
-      "spec": { "width": 48, "height": 48, "nineSlice": 16 },
+      "spec": {
+        "width": 48,
+        "height": 48,
+        "nineSlice": 16
+      },
       "source": "L0",
       "generator": "scripts/gen-ui.mjs",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["ui", "frame", "panel", "9slice"]
+      "tags": [
+        "ui",
+        "frame",
+        "panel",
+        "9slice"
+      ]
     },
     {
       "id": "ui-frame-dialog-9slice",
       "path": "src/assets/ui/frames/ui-frame-dialog-9slice.png",
       "kind": "ui",
-      "spec": { "width": 48, "height": 48, "nineSlice": 16 },
+      "spec": {
+        "width": 48,
+        "height": 48,
+        "nineSlice": 16
+      },
       "source": "L0",
       "generator": "scripts/gen-ui.mjs",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["ui", "frame", "dialog", "9slice"]
+      "tags": [
+        "ui",
+        "frame",
+        "dialog",
+        "9slice"
+      ]
     },
     {
       "id": "ui-bar-hp",
       "path": "src/assets/ui/bars/ui-bar-hp.png",
       "kind": "ui",
-      "spec": { "width": 64, "height": 8 },
+      "spec": {
+        "width": 64,
+        "height": 8
+      },
       "source": "L0",
       "generator": "scripts/gen-ui.mjs",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["ui", "bar", "hp"]
+      "tags": [
+        "ui",
+        "bar",
+        "hp"
+      ]
     },
     {
       "id": "ui-bar-mp",
       "path": "src/assets/ui/bars/ui-bar-mp.png",
       "kind": "ui",
-      "spec": { "width": 64, "height": 8 },
+      "spec": {
+        "width": 64,
+        "height": 8
+      },
       "source": "L0",
       "generator": "scripts/gen-ui.mjs",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["ui", "bar", "mp"]
+      "tags": [
+        "ui",
+        "bar",
+        "mp"
+      ]
     },
     {
       "id": "ui-bar-mind",
       "path": "src/assets/ui/bars/ui-bar-mind.png",
       "kind": "ui",
-      "spec": { "width": 64, "height": 8 },
+      "spec": {
+        "width": 64,
+        "height": 8
+      },
       "source": "L0",
       "generator": "scripts/gen-ui.mjs",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["ui", "bar", "mind"]
+      "tags": [
+        "ui",
+        "bar",
+        "mind"
+      ]
     },
     {
       "id": "ui-bar-exp",
       "path": "src/assets/ui/bars/ui-bar-exp.png",
       "kind": "ui",
-      "spec": { "width": 64, "height": 8 },
+      "spec": {
+        "width": 64,
+        "height": 8
+      },
       "source": "L0",
       "generator": "scripts/gen-ui.mjs",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["ui", "bar", "exp"]
+      "tags": [
+        "ui",
+        "bar",
+        "exp"
+      ]
     },
     {
       "id": "ui-btn-primary-normal",
       "path": "src/assets/ui/buttons/ui-btn-primary-normal.png",
       "kind": "ui",
-      "spec": { "width": 48, "height": 16 },
+      "spec": {
+        "width": 48,
+        "height": 16
+      },
       "source": "L0",
       "generator": "scripts/gen-ui.mjs",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["ui", "button", "primary", "normal"]
+      "tags": [
+        "ui",
+        "button",
+        "primary",
+        "normal"
+      ]
     },
     {
       "id": "ui-btn-primary-hover",
       "path": "src/assets/ui/buttons/ui-btn-primary-hover.png",
       "kind": "ui",
-      "spec": { "width": 48, "height": 16 },
+      "spec": {
+        "width": 48,
+        "height": 16
+      },
       "source": "L0",
       "generator": "scripts/gen-ui.mjs",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["ui", "button", "primary", "hover"]
+      "tags": [
+        "ui",
+        "button",
+        "primary",
+        "hover"
+      ]
     },
     {
       "id": "ui-btn-primary-active",
       "path": "src/assets/ui/buttons/ui-btn-primary-active.png",
       "kind": "ui",
-      "spec": { "width": 48, "height": 16 },
+      "spec": {
+        "width": 48,
+        "height": 16
+      },
       "source": "L0",
       "generator": "scripts/gen-ui.mjs",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["ui", "button", "primary", "active"]
+      "tags": [
+        "ui",
+        "button",
+        "primary",
+        "active"
+      ]
     },
     {
       "id": "ui-btn-primary-disabled",
       "path": "src/assets/ui/buttons/ui-btn-primary-disabled.png",
       "kind": "ui",
-      "spec": { "width": 48, "height": 16 },
+      "spec": {
+        "width": 48,
+        "height": 16
+      },
       "source": "L0",
       "generator": "scripts/gen-ui.mjs",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["ui", "button", "primary", "disabled"]
+      "tags": [
+        "ui",
+        "button",
+        "primary",
+        "disabled"
+      ]
     },
-
     {
       "id": "icon-item-dan-huiqi",
       "path": "src/assets/ui/icons/icon-item-dan-huiqi.png",
       "kind": "icon",
-      "spec": { "width": 32, "height": 32 },
+      "spec": {
+        "width": 32,
+        "height": 32
+      },
       "source": "L1",
       "generator": "scripts/render-pixels.mjs",
       "sourceFile": "src/assets/pixel/ui/icon-item-dan-huiqi.px.txt",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["icon", "item", "dan", "huiqi"]
+      "tags": [
+        "icon",
+        "item",
+        "dan",
+        "huiqi"
+      ]
     },
     {
       "id": "icon-item-fu-qixie",
       "path": "src/assets/ui/icons/icon-item-fu-qixie.png",
       "kind": "icon",
-      "spec": { "width": 32, "height": 32 },
+      "spec": {
+        "width": 32,
+        "height": 32
+      },
       "source": "L1",
       "generator": "scripts/render-pixels.mjs",
       "sourceFile": "src/assets/pixel/ui/icon-item-fu-qixie.px.txt",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["icon", "item", "fu", "qixie"]
+      "tags": [
+        "icon",
+        "item",
+        "fu",
+        "qixie"
+      ]
     },
     {
       "id": "icon-fac-kunlun",
       "path": "src/assets/ui/icons/icon-fac-kunlun.png",
       "kind": "icon",
-      "spec": { "width": 32, "height": 32 },
+      "spec": {
+        "width": 32,
+        "height": 32
+      },
       "source": "L1",
       "generator": "scripts/render-pixels.mjs",
       "sourceFile": "src/assets/pixel/ui/icon-fac-kunlun.px.txt",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["icon", "fac", "kunlun"]
+      "tags": [
+        "icon",
+        "fac",
+        "kunlun"
+      ]
     },
     {
       "id": "icon-fac-jiejiao",
       "path": "src/assets/ui/icons/icon-fac-jiejiao.png",
       "kind": "icon",
-      "spec": { "width": 32, "height": 32 },
+      "spec": {
+        "width": 32,
+        "height": 32
+      },
       "source": "L1",
       "generator": "scripts/render-pixels.mjs",
       "sourceFile": "src/assets/pixel/ui/icon-fac-jiejiao.px.txt",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["icon", "fac", "jiejiao"]
+      "tags": [
+        "icon",
+        "fac",
+        "jiejiao"
+      ]
     },
     {
       "id": "icon-fac-maoshan",
       "path": "src/assets/ui/icons/icon-fac-maoshan.png",
       "kind": "icon",
-      "spec": { "width": 32, "height": 32 },
+      "spec": {
+        "width": 32,
+        "height": 32
+      },
       "source": "L1",
       "generator": "scripts/render-pixels.mjs",
       "sourceFile": "src/assets/pixel/ui/icon-fac-maoshan.px.txt",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["icon", "fac", "maoshan"]
+      "tags": [
+        "icon",
+        "fac",
+        "maoshan"
+      ]
     },
     {
       "id": "icon-fac-yao",
       "path": "src/assets/ui/icons/icon-fac-yao.png",
       "kind": "icon",
-      "spec": { "width": 32, "height": 32 },
+      "spec": {
+        "width": 32,
+        "height": 32
+      },
       "source": "L1",
       "generator": "scripts/render-pixels.mjs",
       "sourceFile": "src/assets/pixel/ui/icon-fac-yao.px.txt",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["icon", "fac", "yao"]
+      "tags": [
+        "icon",
+        "fac",
+        "yao"
+      ]
     },
     {
       "id": "icon-fac-court",
       "path": "src/assets/ui/icons/icon-fac-court.png",
       "kind": "icon",
-      "spec": { "width": 32, "height": 32 },
+      "spec": {
+        "width": 32,
+        "height": 32
+      },
       "source": "L1",
       "generator": "scripts/render-pixels.mjs",
       "sourceFile": "src/assets/pixel/ui/icon-fac-court.px.txt",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["icon", "fac", "court"]
+      "tags": [
+        "icon",
+        "fac",
+        "court"
+      ]
     },
     {
       "id": "icon-fac-sanxiu",
       "path": "src/assets/ui/icons/icon-fac-sanxiu.png",
       "kind": "icon",
-      "spec": { "width": 32, "height": 32 },
+      "spec": {
+        "width": 32,
+        "height": 32
+      },
       "source": "L1",
       "generator": "scripts/render-pixels.mjs",
       "sourceFile": "src/assets/pixel/ui/icon-fac-sanxiu.px.txt",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["icon", "fac", "sanxiu"]
+      "tags": [
+        "icon",
+        "fac",
+        "sanxiu"
+      ]
     },
-
     {
       "id": "vfx-skill-huo-qiu",
       "path": "src/assets/vfx/skills/vfx-skill-huo-qiu.png",
       "kind": "vfx",
-      "spec": { "width": 512, "height": 64, "cell": 64, "columns": 8, "rows": 1 },
+      "spec": {
+        "width": 512,
+        "height": 64,
+        "cell": 64,
+        "columns": 8,
+        "rows": 1
+      },
       "source": "L1",
       "generator": "scripts/render-pixels.mjs",
       "atlas": "src/assets/pixel/vfx/vfx-skill-huo-qiu.atlas.json",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["vfx", "skill", "fire", "frames8"]
+      "tags": [
+        "vfx",
+        "skill",
+        "fire",
+        "frames8"
+      ]
     },
-
     {
       "id": "bgm-qingyun",
       "path": "src/assets/audio/bgm/bgm-qingyun.ogg",
       "kind": "bgm",
-      "spec": { "loop": true, "durationTarget": 90 },
+      "spec": {
+        "loop": true,
+        "durationTarget": 90
+      },
       "source": "L2",
       "generator": "scripts/gen-audio.mjs",
       "sourceFile": "src/assets/psg/bgm-qingyun.psg.txt",
@@ -360,13 +601,20 @@
       "note": "占位时长（短于 spec.durationTarget）；升为 final 前必须补齐时长，check-assets 会拦下",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["bgm", "qingyun", "town"]
+      "tags": [
+        "bgm",
+        "qingyun",
+        "town"
+      ]
     },
     {
       "id": "bgm-battle-normal",
       "path": "src/assets/audio/bgm/bgm-battle-normal.ogg",
       "kind": "bgm",
-      "spec": { "loop": true, "durationTarget": 60 },
+      "spec": {
+        "loop": true,
+        "durationTarget": 60
+      },
       "source": "L2",
       "generator": "scripts/gen-audio.mjs",
       "sourceFile": "src/assets/psg/bgm-battle-normal.psg.txt",
@@ -374,19 +622,119 @@
       "note": "占位时长（短于 spec.durationTarget）；升为 final 前必须补齐时长，check-assets 会拦下",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["bgm", "battle", "normal"]
+      "tags": [
+        "bgm",
+        "battle",
+        "normal"
+      ]
     },
     {
       "id": "sfx-ui-click",
       "path": "src/assets/audio/sfx/sfx-ui-click.ogg",
       "kind": "sfx",
-      "spec": { "maxMs": 80 },
+      "spec": {
+        "maxMs": 80
+      },
       "source": "L2",
       "generator": "scripts/gen-audio.mjs",
       "status": "placeholder",
       "license": "project",
       "author": "EmberCultivation contributors",
-      "tags": ["sfx", "ui", "click"]
+      "tags": [
+        "sfx",
+        "ui",
+        "click"
+      ]
+    },
+    {
+      "id": "sfx-attack-slash",
+      "path": "src/assets/audio/sfx/sfx-attack-slash.ogg",
+      "kind": "sfx",
+      "spec": {
+        "maxMs": 80
+      },
+      "source": "L2",
+      "generator": "scripts/gen-audio.mjs",
+      "status": "placeholder",
+      "license": "project",
+      "author": "EmberCultivation contributors",
+      "tags": [
+        "sfx",
+        "battle",
+        "slash"
+      ]
+    },
+    {
+      "id": "sfx-attack-hit",
+      "path": "src/assets/audio/sfx/sfx-attack-hit.ogg",
+      "kind": "sfx",
+      "spec": {
+        "maxMs": 80
+      },
+      "source": "L2",
+      "generator": "scripts/gen-audio.mjs",
+      "status": "placeholder",
+      "license": "project",
+      "author": "EmberCultivation contributors",
+      "tags": [
+        "sfx",
+        "battle",
+        "hit"
+      ]
+    },
+    {
+      "id": "sfx-crit",
+      "path": "src/assets/audio/sfx/sfx-crit.ogg",
+      "kind": "sfx",
+      "spec": {
+        "maxMs": 80
+      },
+      "source": "L2",
+      "generator": "scripts/gen-audio.mjs",
+      "status": "placeholder",
+      "license": "project",
+      "author": "EmberCultivation contributors",
+      "tags": [
+        "sfx",
+        "battle",
+        "crit"
+      ]
+    },
+    {
+      "id": "sfx-enemy-die",
+      "path": "src/assets/audio/sfx/sfx-enemy-die.ogg",
+      "kind": "sfx",
+      "spec": {
+        "maxMs": 80
+      },
+      "source": "L2",
+      "generator": "scripts/gen-audio.mjs",
+      "status": "placeholder",
+      "license": "project",
+      "author": "EmberCultivation contributors",
+      "tags": [
+        "sfx",
+        "battle",
+        "enemy-die"
+      ]
+    },
+    {
+      "id": "sfx-player-hurt",
+      "path": "src/assets/audio/sfx/sfx-player-hurt.ogg",
+      "kind": "sfx",
+      "spec": {
+        "maxMs": 80
+      },
+      "source": "L2",
+      "generator": "scripts/gen-audio.mjs",
+      "status": "placeholder",
+      "license": "project",
+      "author": "EmberCultivation contributors",
+      "tags": [
+        "sfx",
+        "battle",
+        "player-hurt"
+      ]
     }
   ]
 }

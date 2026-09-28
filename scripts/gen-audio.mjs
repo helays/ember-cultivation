@@ -450,6 +450,62 @@ const SFX_TABLE = [
       { wave: 'noise', from: 5200, to: 2600, gain: 0.22, attackMs: 0.3, releaseMs: 7, curve: 2.6 },
     ],
   },
+  {
+    // M3 战斗音效（doc/15 §2.4）：出手挥砍——高频噪声扫频，短促
+    id: 'sfx-attack-slash',
+    out: 'src/assets/audio/sfx/sfx-attack-slash.ogg',
+    format: 'sfx',
+    durationMs: 72,
+    layers: [
+      { wave: 'noise', from: 6800, to: 1500, gain: 0.6, attackMs: 0.5, releaseMs: 18, curve: 1.8 },
+      { wave: 'square', duty: 0.25, from: 920, to: 300, gain: 0.28, attackMs: 0.8, releaseMs: 14, curve: 2.4 },
+    ],
+  },
+  {
+    // 命中——低频方波顿点 + 噪声冲击
+    id: 'sfx-attack-hit',
+    out: 'src/assets/audio/sfx/sfx-attack-hit.ogg',
+    format: 'sfx',
+    durationMs: 64,
+    layers: [
+      { wave: 'square', duty: 0.5, from: 420, to: 130, gain: 0.7, attackMs: 0.4, releaseMs: 22, curve: 2.0 },
+      { wave: 'noise', from: 3200, to: 700, gain: 0.4, attackMs: 0.4, releaseMs: 12, curve: 2.2 },
+    ],
+  },
+  {
+    // 会心一击——双八度上扫方波，锋利
+    id: 'sfx-crit',
+    out: 'src/assets/audio/sfx/sfx-crit.ogg',
+    format: 'sfx',
+    durationMs: 78,
+    layers: [
+      { wave: 'square', duty: 0.35, from: 660, to: 1980, gain: 0.55, attackMs: 0.5, releaseMs: 20, curve: 1.6 },
+      { wave: 'square', duty: 0.5, from: 330, to: 990, gain: 0.35, attackMs: 0.6, releaseMs: 24, curve: 1.9 },
+      { wave: 'noise', from: 7000, to: 2400, gain: 0.3, attackMs: 0.3, releaseMs: 10, curve: 2.0 },
+    ],
+  },
+  {
+    // 敌人消散——下扫三角色阶 + 衰减噪声
+    id: 'sfx-enemy-die',
+    out: 'src/assets/audio/sfx/sfx-enemy-die.ogg',
+    format: 'sfx',
+    durationMs: 80,
+    layers: [
+      { wave: 'triangle', from: 880, to: 110, gain: 0.65, attackMs: 1.0, releaseMs: 30, curve: 2.2 },
+      { wave: 'noise', from: 4000, to: 500, gain: 0.32, attackMs: 1.2, releaseMs: 26, curve: 2.5 },
+    ],
+  },
+  {
+    // 玩家受击——闷响方波下扫
+    id: 'sfx-player-hurt',
+    out: 'src/assets/audio/sfx/sfx-player-hurt.ogg',
+    format: 'sfx',
+    durationMs: 70,
+    layers: [
+      { wave: 'square', duty: 0.4, from: 300, to: 90, gain: 0.7, attackMs: 0.5, releaseMs: 26, curve: 2.4 },
+      { wave: 'noise', from: 1800, to: 400, gain: 0.28, attackMs: 0.5, releaseMs: 20, curve: 2.6 },
+    ],
+  },
 ]
 
 function synthSfx(spec) {
