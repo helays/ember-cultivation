@@ -11,6 +11,7 @@ import npcsJson from '../data/npcs.json'
 import dialoguesJson from '../data/dialogues.json'
 import questsJson from '../data/quests.json'
 import eventsJson from '../data/events.json'
+import affixesJson from '../data/affixes.json'
 
 export const TABLES = {
   enemies: enemiesJson,
@@ -22,6 +23,7 @@ export const TABLES = {
   dialogues: dialoguesJson,
   quests: questsJson,
   events: eventsJson,
+  affixes: affixesJson,
 }
 
 initRegistry(TABLES)

@@ -19,11 +19,13 @@ export class WorldScene extends Phaser.Scene {
     super('WorldScene')
   }
 
-  init(data) {
-    // Restore from game:start data, or from the registry when returning
-    // from the dev-only AssetPreviewScene.
-    this.session = data?.state ?? this.game.registry.get('session') ?? null
-    if (data?.state) this.game.registry.set('session', data.state)
+  init() {
+    // The registry is the single session source of truth: game:start
+    // refreshes it (BootScene) and portals rewrite it before restart — a
+    // restart would otherwise replay stale original init data.
+    this.session = this.game.registry.get('session') ?? null
+    this.currentLocation = this.session?.location ?? 'map-qingyun'
+    this.portalCooldownUntil = 0
   }
 
   preload() {
@@ -39,7 +41,10 @@ export class WorldScene extends Phaser.Scene {
     const loaded = this.mapLoader.create(this.session?.location ?? 'map-qingyun')
     this.mapData = loaded
 
-    const spawn = this.session?.position ?? loaded.playerSpawn
+    const named = this.session?.spawnName
+      ? (loaded.spawns.find((s) => s.name === this.session.spawnName) ?? null)
+      : null
+    const spawn = named ?? this.session?.position ?? loaded.playerSpawn
     this.player = new Player(this, spawn.x, spawn.y, spawn.facing)
     this.physics.add.collider(this.player, loaded.wallGroup)
 
@@ -184,6 +189,9 @@ export class WorldScene extends Phaser.Scene {
           spd: p.attrs.speed,
           shenshi: p.shenshi,
           spiritualRoot: p.spiritualRoot,
+          // Codex bonus tiers (doc/02 §9.1): 25 -> +5%, 50/100 -> +10%
+          codexBonus: (payload.codex?.yaoguai?.length ?? 0) >= 50 ? 0.10
+            : (payload.codex?.yaoguai?.length ?? 0) >= 25 ? 0.05 : 0,
           skills: (payload.skills ?? []).map((s) => s.id),
           skillLevels: Object.fromEntries((payload.skills ?? []).map((s) => [s.id, s.level ?? 1])),
         }]
@@ -257,6 +265,7 @@ export class WorldScene extends Phaser.Scene {
     this.freeze()
     const payload = composeSave()
     if (payload) {
+      payload.player.location = this.currentLocation
       const body = this.player.body.center
       payload.player.position = {
         x: Math.round(body.x * 10) / 10,
@@ -282,5 +291,34 @@ export class WorldScene extends Phaser.Scene {
   update(time, delta) {
     this.movement?.update(delta)
     this.encounterSystem?.update()
+    this.checkPortals()
+  }
+
+  /** Portal overlap (doc/10 §3): trigger rects with a portal property carry
+   *  the player to the target map's named spawn via a scene restart. */
+  checkPortals() {
+    if (this.frozen || this.inBattle) return
+    if (this.time.now < this.portalCooldownUntil) return
+    const body = this.player?.body?.center
+    if (!body) return
+    for (const trigger of this.mapData?.triggers ?? []) {
+      const target = trigger.props?.portal
+      if (!target) continue
+      const inside = body.x >= trigger.x && body.x <= trigger.x + trigger.width
+        && body.y >= trigger.y && body.y <= trigger.y + trigger.height
+      if (!inside) continue
+      this.portalCooldownUntil = this.time.now + 1500
+      bus.emit(EVT.SCENE_TRANSITION, { from: this.currentLocation, to: target, fade: true })
+      this.game.registry.set('session', {
+        location: target,
+        spawnName: trigger.props.spawn ?? 'player-spawn',
+        position: null,
+        time: this.timeSystem.snapshot(),
+      })
+      // Cross-map travel costs one shichen (doc/12 §7.3).
+      this.timeSystem.advance(1)
+      this.scene.restart()
+      return
+    }
   }
 }

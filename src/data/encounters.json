@@ -3,11 +3,115 @@
     "id": "enc-qingyun-east",
     "name": "青云镇东郊草地",
     "groups": [
-      { "enemies": ["enemy-wolf"], "weight": 30 },
-      { "enemies": ["enemy-zombie"], "weight": 25 },
-      { "enemies": ["enemy-gui-hun"], "weight": 20 },
-      { "enemies": ["enemy-wolf", "enemy-wolf"], "weight": 15 },
-      { "enemies": ["enemy-shi-bing"], "weight": 10 }
+      {
+        "enemies": [
+          "enemy-wolf"
+        ],
+        "weight": 30
+      },
+      {
+        "enemies": [
+          "enemy-zombie"
+        ],
+        "weight": 25
+      },
+      {
+        "enemies": [
+          "enemy-gui-hun"
+        ],
+        "weight": 20
+      },
+      {
+        "enemies": [
+          "enemy-wolf",
+          "enemy-wolf"
+        ],
+        "weight": 15
+      },
+      {
+        "enemies": [
+          "enemy-shi-bing"
+        ],
+        "weight": 10
+      }
+    ]
+  },
+  {
+    "id": "enc-houshan-grass",
+    "name": "青云后山草地",
+    "groups": [
+      {
+        "enemies": [
+          "enemy-wolf"
+        ],
+        "weight": 35
+      },
+      {
+        "enemies": [
+          "enemy-wolf",
+          "enemy-wolf"
+        ],
+        "weight": 25
+      },
+      {
+        "enemies": [
+          "enemy-shi-bing"
+        ],
+        "weight": 20
+      },
+      {
+        "enemies": [
+          "enemy-gui-hun"
+        ],
+        "weight": 10
+      },
+      {
+        "enemies": [
+          "enemy-shi-bing",
+          "enemy-wolf"
+        ],
+        "weight": 10
+      }
+    ]
+  },
+  {
+    "id": "enc-luanzang-night",
+    "name": "乱葬岗夜行",
+    "groups": [
+      {
+        "enemies": [
+          "enemy-zombie"
+        ],
+        "weight": 35
+      },
+      {
+        "enemies": [
+          "enemy-zombie",
+          "enemy-zombie"
+        ],
+        "weight": 25
+      },
+      {
+        "enemies": [
+          "enemy-gui-hun"
+        ],
+        "weight": 20
+      },
+      {
+        "enemies": [
+          "enemy-gui-hun",
+          "enemy-zombie"
+        ],
+        "weight": 15
+      },
+      {
+        "enemies": [
+          "enemy-zombie",
+          "enemy-zombie",
+          "enemy-gui-hun"
+        ],
+        "weight": 5
+      }
     ]
   }
 ]

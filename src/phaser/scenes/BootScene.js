@@ -27,6 +27,7 @@ export class BootScene extends Phaser.Scene {
 
   onGameStart = (payload) => {
     logger.info('BootScene', `game:start mode=${payload.mode}`)
+    this.game.registry.set('session', payload.state)
     this.scene.start('WorldScene', payload)
   }
 }

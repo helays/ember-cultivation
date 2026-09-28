@@ -7,7 +7,7 @@
 export const ID_PREFIXES = [
   'mq-', 'sq-', 'fq-', 'dq-', 'rq-', 'eq-', 'evt-', 'npc-', 'enemy-', 'boss-',
   'item-', 'skill-', 'gongfa-', 'tal-', 'alch-', 'craft-', 'map-', 'fac-',
-  'flag-', 'end-', 'cdx-', 'shop-', 'bgm-', 'sfx-', 'enc-', 'dlg-',
+  'flag-', 'end-', 'cdx-', 'shop-', 'bgm-', 'sfx-', 'enc-', 'dlg-', 'affix-', 'spawn-', 'combo-',
 ]
 
 export const EFFECT_TYPES = [
@@ -148,10 +148,6 @@ export function validateTables(TABLES) {
       for (const [path, prefix] of REF_FIELDS) {
         for (const ref of resolvePath(entry, path)) {
           if (prefix === 'flag-') { flagsRead.add(ref); continue }
-          if (prefix === 'map-' && ref !== 'map-qingyun') {
-            warnings.push(`${entry.id}: map "${ref}" not shipped yet`)
-            continue
-          }
           if (!resolves(TABLES, ref)) {
             errors.push(`${entry.id}: ${path} "${ref}" does not exist in any table`)
             continue

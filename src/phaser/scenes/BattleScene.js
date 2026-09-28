@@ -4,7 +4,7 @@ import { logger } from '@/core/logger.js'
 import { BattleState } from '../battle/BattleState.js'
 import { turnOrder } from '../battle/TurnManager.js'
 import { chooseAction } from '../battle/EnemyAI.js'
-import { rollEncounter, getEnemy, skillsById } from '@/core/registry.js'
+import { rollEncounter, getEnemy, getAffix, rollAffix, skillsById } from '@/core/registry.js'
 import playerSheetUrl from '@/assets/sprites/player/sprite-player-walk-4dir.png?url'
 import sfxSlashUrl from '@/assets/audio/sfx/sfx-attack-slash.ogg?url'
 import sfxHitUrl from '@/assets/audio/sfx/sfx-attack-hit.ogg?url'
@@ -52,18 +52,32 @@ export class BattleScene extends Phaser.Scene {
     this.displays = new Map()
 
     const { allies, enemyIds } = this.battleInput
+    // NG+ scaling (doc/12 §8.1): each cycle multiplies enemy stats.
+    const ngMul = 1 + (this.battleInput.newGamePlus ?? 0) * 0.6
     const enemyDefs = enemyIds.map((id, i) => {
       const def = getEnemy(id)
       if (!def) throw new Error(`unknown enemy: ${id}`)
       // `defRef` (NOT `def`) — `def` is the numeric defense stat from stats.
       // Stats tables carry current values only; maxHp/maxMp are derived.
+      const affix = rollAffix()
+      const scaled = { ...def.stats }
+      for (const [stat, mul] of Object.entries(affix?.stats ?? {})) {
+        scaled[stat] = Math.round((scaled[stat] ?? 0) * mul * ngMul)
+      }
+      if (!affix) {
+        for (const key of Object.keys(scaled)) {
+          if (['hp', 'atk', 'def', 'spd'].includes(key)) scaled[key] = Math.round(scaled[key] * ngMul)
+        }
+      }
+      scaled.hp = Math.max(1, scaled.hp)
       return {
         id: `${id}#${i}`,
         baseId: id,
-        name: def.name,
-        ...def.stats,
-        maxHp: def.stats.hp,
-        maxMp: def.stats.mp,
+        kind: def.kind,
+        name: affix ? `${affix.name}·${def.name}` : def.name,
+        ...scaled,
+        maxHp: scaled.hp,
+        maxMp: scaled.mp,
         ai: def.ai,
         weakness: def.weakness,
         resist: def.resist,

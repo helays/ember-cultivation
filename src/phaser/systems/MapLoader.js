@@ -1,8 +1,13 @@
 import Phaser from 'phaser'
 import mapQingyunUrl from '@/data/maps/map-qingyun.json?url'
+import mapHoushanUrl from '@/data/maps/map-houshan.json?url'
+import mapLuanzangUrl from '@/data/maps/map-luanzang.json?url'
 import townGroundUrl from '@/assets/tilesets/town/tileset-town-ground.png?url'
 import townBuildingUrl from '@/assets/tilesets/town/tileset-town-building.png?url'
 import townDecoUrl from '@/assets/tilesets/town/tileset-town-deco.png?url'
+import wildGroundUrl from '@/assets/tilesets/wilderness/tileset-wilderness-ground.png?url'
+import dunGroundUrl from '@/assets/tilesets/dungeon/tileset-dungeon-ground.png?url'
+import dunWallUrl from '@/assets/tilesets/dungeon/tileset-dungeon-wall.png?url'
 
 // Tiled map loader (doc/10 §2): layers are matched BY NAME, never by index.
 // M1 keeps a static registry of known maps; the config-table registry
@@ -18,6 +23,22 @@ const MAPS = {
     tilesets: {
       'town-ground': townGroundUrl,
       'town-building': townBuildingUrl,
+      'town-deco': townDecoUrl,
+    },
+  },
+  'map-houshan': {
+    url: mapHoushanUrl,
+    tilesets: {
+      'wilderness-ground': wildGroundUrl,
+      'town-building': townBuildingUrl,
+      'town-deco': townDecoUrl,
+    },
+  },
+  'map-luanzang': {
+    url: mapLuanzangUrl,
+    tilesets: {
+      'dungeon-ground': dunGroundUrl,
+      'dungeon-wall': dunWallUrl,
       'town-deco': townDecoUrl,
     },
   },
@@ -67,6 +88,7 @@ export class MapLoader {
     // Object layers (doc/10 §2): collision / interact / spawn / event / encounter.
     const wallGroup = this.scene.physics.add.staticGroup()
     const waterRects = []
+    const triggers = []
     const interactables = []
     const encounterZones = []
     const events = []
@@ -79,7 +101,8 @@ export class MapLoader {
       if (kind === 'water') {
         waterRects.push(rect)
       } else if (kind === 'trigger') {
-        // Triggers never block (doc/15 §2.2); consumed by event systems in M4.
+        // Triggers never block (doc/02 §2.2); portals consume them (M5).
+        triggers.push({ x: obj.x, y: obj.y, width: obj.width, height: obj.height, props: propsOf(obj), name: obj.name })
         continue
       } else {
         const body = this.scene.add.rectangle(
@@ -105,8 +128,10 @@ export class MapLoader {
       })
     }
 
+    const spawns = []
     for (const obj of map.getObjectLayer('spawn')?.objects ?? []) {
       const point = { x: obj.x, y: obj.y, name: obj.name, from: propsOf(obj).from ?? null }
+      spawns.push(point)
       if (obj.name === 'player-spawn') playerSpawn = point
     }
 
@@ -133,8 +158,10 @@ export class MapLoader {
       layers,
       wallGroup,
       waterRects,
+      triggers,
       interactables,
       events,
+      spawns,
       encounterZones,
       playerSpawn,
       mapName,

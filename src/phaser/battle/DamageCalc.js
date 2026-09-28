@@ -85,6 +85,11 @@ export function computeDamage({ attacker, skill, defender, rng = Math.random }) 
   let final = Math.max(base, 0) * mul * float * (crit ? critMul : 1.0)
   if (defender.defending) final *= COEF.DEFEND_MUL
 
+  // Codex completion bonus vs yaoguai-kind targets (doc/02 §9.1: +5%/+10%).
+  const YAO_KINDS = ['zombie', 'ghost', 'yao', 'beast']
+  if (attacker.codexBonus && YAO_KINDS.includes(defender.kind)) {
+    final *= 1 + attacker.codexBonus
+  }
   const floor = attacker.atk * COEF.FLOOR
   const damage = Math.max(Math.round(final), Math.max(1, Math.round(floor)))
   return { missed: false, damage, crit, elementMul: mul }

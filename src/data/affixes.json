@@ -1,0 +1,20 @@
+[
+  {
+    "id": "affix-xiong-can",
+    "name": "凶残",
+    "desc": "攻击提升，出手更加狠辣。",
+    "stats": { "atk": 1.35, "hp": 1.1 }
+  },
+  {
+    "id": "affix-tie-jia",
+    "name": "铁甲",
+    "desc": "覆着一层锈甲，防御大幅提升。",
+    "stats": { "def": 1.6, "hp": 1.15 }
+  },
+  {
+    "id": "affix-xun-jie",
+    "name": "迅捷",
+    "desc": "身形飘忽，速度极快。",
+    "stats": { "spd": 1.4 }
+  }
+]

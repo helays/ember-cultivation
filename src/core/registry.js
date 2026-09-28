@@ -35,6 +35,15 @@ export const getDialogue = (id) => table('dialogues').get(id) ?? null
 export const getQuest = (id) => table('quests').get(id) ?? null
 export const getEvent = (id) => table('events').get(id) ?? null
 export const getEncounter = (id) => table('encounters').get(id) ?? null
+export const getAffix = (id) => table('affixes').get(id) ?? null
+
+/** Roll an affix for a map enemy (doc/15 §2.6): chance-based, may be null. */
+export function rollAffix(rng = Math.random) {
+  if (rng() > 0.25) return null
+  const all = [...table('affixes').values()]
+  if (!all.length) return null
+  return all[Math.floor(rng() * all.length)]
+}
 
 /** All entries of a table (for map/NPC placement and panels). */
 export function listTable(name) {
