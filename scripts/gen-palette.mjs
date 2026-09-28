@@ -95,7 +95,7 @@ export const SPRITE_WALK = { width: 32, height: 48 }
 export const SPRITE_BATTLE = { width: 48, height: 48 }
 export const PLAYER_SPEED = 140
 export const ENCOUNTER_RADIUS = 60
-export const STEPS_PER_SHI = 180
+export const TIME_STEPS_PER_SHI = 180
 export const LOGICAL_WIDTH = 640
 export const LOGICAL_HEIGHT = 360
 `
