@@ -27,6 +27,8 @@ window.addEventListener('beforeunload', () => {
 })
 
 const game = new Phaser.Game(createPhaserConfig('game-root'))
+game.events.once('ready', () => window.__fitCanvas?.())
+game.events.on(Phaser.Core.Events.POST_RENDER, () => window.__fitCanvas?.())
 
 // Debug asset gallery: dev-only, dynamically imported so production builds
 // never bundle it (doc/14 §4.4).

@@ -1,6 +1,7 @@
 import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import { VitePWA } from 'vite-plugin-pwa'
 
 // base switches to the repo sub-path when deploying to GitHub Pages
 // (see doc/13 §12); local dev and other hosts keep the root path.
@@ -53,7 +54,53 @@ async function tableValidationGate() {
 
 export default defineConfig({
   base,
-  plugins: [vue(), tableValidationGate()],
+  plugins: [
+    vue(),
+    tableValidationGate(),
+    // PWA (doc/13 §12, doc/15 §2.7): autoUpdate, precache the app shell and
+    // runtime-cache the config tables so the game runs fully offline.
+    VitePWA({
+      registerType: 'autoUpdate',
+      manifest: {
+        name: '末法仙途',
+        short_name: '末法仙途',
+        description: '末法时代修仙 2D 单机网页游戏',
+        lang: 'zh-CN',
+        display: 'fullscreen',
+        orientation: 'landscape',
+        background_color: '#0d1f27',
+        theme_color: '#0d1f27',
+        icons: [
+          { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
+          { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png' },
+          { src: '/icons/icon-192-maskable.png', sizes: '192x192', type: 'image/png', purpose: 'maskable' },
+          { src: '/icons/icon-512-maskable.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+        ],
+      },
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,woff2}'],
+        runtimeCaching: [
+          {
+            urlPattern: /\/data\/.*\.json$/,
+            handler: 'CacheFirst',
+            options: { cacheName: 'ec-data' },
+          },
+          {
+            urlPattern: /\/assets\/.*\.(png|ogg)$/,
+            handler: 'CacheFirst',
+            options: { cacheName: 'ec-assets' },
+          },
+        ],
+      },
+    }),
+  ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: { phaser: ['phaser'] },
+      },
+    },
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

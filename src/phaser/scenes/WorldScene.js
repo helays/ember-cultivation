@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import { bus, EVT } from '@/core/bus.js'
 import { TILE_SIZE } from '@/core/constants.js'
 import { composeSave, writeSlot } from '@/core/saveManager.js'
+import { getSettings } from '@/core/settings.js'
 import { rollEncounter, listTable, getItem } from '@/core/registry.js'
 import { EventTriggerSystem } from '../systems/EventTriggerSystem.js'
 import { Npc } from '../entities/Npc.js'
@@ -11,6 +12,7 @@ import { MovementSystem } from '../systems/MovementSystem.js'
 import { EncounterSystem } from '../systems/EncounterSystem.js'
 import { TimeSystem, defaultTime } from '../systems/TimeSystem.js'
 import { Player } from '../entities/Player.js'
+import bgmQingyunUrl from '@/assets/audio/bgm/bgm-qingyun.ogg?url'
 
 // Exploration scene: map, free movement, encounter placeholder, day/night
 // tint and the world-freeze side of the save flow (doc/15 §2.2).
@@ -30,8 +32,9 @@ export class WorldScene extends Phaser.Scene {
 
   preload() {
     this.mapLoader = new MapLoader(this)
-    this.mapLoader.preload(this.session?.location ?? 'map-qingyun')
+    this.mapLoader.preload(this.currentLocation)
     Player.preload(this)
+    this.load.audio('bgm-qingyun', bgmQingyunUrl)
   }
 
   create() {
@@ -102,6 +105,11 @@ export class WorldScene extends Phaser.Scene {
     })
 
     this.scene.launch('UIScene')
+    // Ambient BGM (doc/15 §2.7): loops, respects saved volume settings.
+    if (this.sound.get('bgm-qingyun')?.isPlaying !== true) {
+      const settings = getSettings()
+      this.sound.play('bgm-qingyun', { loop: true, volume: settings.bgmVolume })
+    }
     logger.info('WorldScene', `world ready at ${loaded.mapName}`)
   }
 
@@ -143,6 +151,7 @@ export class WorldScene extends Phaser.Scene {
     this.frozen = true
     this.physics.world.pause()
     this.timeSystem.pause()
+    this.sound.get('bgm-qingyun')?.pause()
   }
 
   unfreeze() {
@@ -150,6 +159,7 @@ export class WorldScene extends Phaser.Scene {
     this.frozen = false
     this.physics.world.resume()
     this.timeSystem.resume()
+    if (!this.inBattle) this.sound.get('bgm-qingyun')?.resume()
   }
 
   /** Enter battle from an encounter table (doc/02 §3.1). */

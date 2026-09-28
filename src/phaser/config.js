@@ -24,8 +24,9 @@ export function createPhaserConfig(parent) {
         debug: false,
       },
     },
+    // NONE + the index.html integer fitter (doc/14 §8.6): no fractional zoom.
     scale: {
-      mode: Phaser.Scale.FIT,
+      mode: Phaser.Scale.NONE,
       autoCenter: Phaser.Scale.CENTER_BOTH,
     },
     scene: [BootScene, WorldScene, BattleScene, UIScene],

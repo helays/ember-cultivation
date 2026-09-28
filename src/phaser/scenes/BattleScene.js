@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import { bus, EVT } from '@/core/bus.js'
 import { logger } from '@/core/logger.js'
+import { getSettings } from '@/core/settings.js'
 import { BattleState } from '../battle/BattleState.js'
 import { turnOrder } from '../battle/TurnManager.js'
 import { chooseAction } from '../battle/EnemyAI.js'
@@ -11,6 +12,7 @@ import sfxHitUrl from '@/assets/audio/sfx/sfx-attack-hit.ogg?url'
 import sfxCritUrl from '@/assets/audio/sfx/sfx-crit.ogg?url'
 import sfxEnemyDieUrl from '@/assets/audio/sfx/sfx-enemy-die.ogg?url'
 import sfxPlayerHurtUrl from '@/assets/audio/sfx/sfx-player-hurt.ogg?url'
+import bgmBattleUrl from '@/assets/audio/bgm/bgm-battle-normal.ogg?url'
 
 const ENEMY_SLOTS = [
   { x: 480, y: 120 },
@@ -42,6 +44,7 @@ export class BattleScene extends Phaser.Scene {
     this.load.audio('sfx-crit', sfxCritUrl)
     this.load.audio('sfx-enemy-die', sfxEnemyDieUrl)
     this.load.audio('sfx-player-hurt', sfxPlayerHurtUrl)
+    this.load.audio('bgm-battle-normal', bgmBattleUrl)
   }
 
   create() {
@@ -91,6 +94,7 @@ export class BattleScene extends Phaser.Scene {
       ...allies.flatMap((a) => a.skills ?? []),
       ...enemyDefs.flatMap((e) => e.skills ?? []),
     ])
+    this.sfxVolume = getSettings().sfxVolume
     this.state = new BattleState({
       allies,
       enemies: enemyDefs,
@@ -99,6 +103,9 @@ export class BattleScene extends Phaser.Scene {
     })
 
     this.renderCombatants()
+    const settings = getSettings()
+    this.sound.play('bgm-battle-normal', { loop: true, volume: settings.bgmVolume })
+    this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     bus.on(EVT.BATTLE_COMMAND, this.onCommand)
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.cleanup())
     // Generation token: a scene stop/restart must kill any stale runBattle
@@ -243,10 +250,11 @@ export class BattleScene extends Phaser.Scene {
             ev.crit ? 16 : 12,
           )
           this.flash(targetD)
-          if (ev.crit) this.cameras.main.shake(120, 0.004)
-          if (target.side === 'ally') this.sound.play('sfx-player-hurt')
+          // Screen shake respects prefers-reduced-motion (doc/15 §2.7).
+          if (ev.crit && !this.reducedMotion) this.cameras.main.shake(120, 0.004)
+          if (target.side === 'ally') this.sound.play('sfx-player-hurt', { volume: this.sfxVolume })
           if (target.hp <= 0) {
-            this.sound.play('sfx-enemy-die')
+            this.sound.play('sfx-enemy-die', { volume: this.sfxVolume })
             this.tintDead(targetD)
           }
         }
@@ -347,6 +355,7 @@ export class BattleScene extends Phaser.Scene {
   }
 
   cleanup() {
+    this.sound.stopByKey('bgm-battle-normal')
     bus.off(EVT.BATTLE_COMMAND, this.onCommand)
     if (this.awaiting) this.awaiting.resolve({ command: 'defend' })
   }

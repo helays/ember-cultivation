@@ -35,6 +35,11 @@
       position: fixed;
       inset: 0;
     }
+    #game-root {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
     /* Pixel-perfect upscaling, see doc/14 §8.6 */
     canvas {
       image-rendering: pixelated;
@@ -44,6 +49,17 @@
 </head>
 <body>
   <div id="game-root"></div>
+  <script>
+    // Integer-multiple scaling with letterbox (doc/14 §8.6): never 1.5x.
+    window.__fitCanvas = function () {
+      const canvas = document.querySelector('#game-root canvas')
+      if (!canvas) return
+      const z = Math.max(1, Math.floor(Math.min(window.innerWidth / 640, window.innerHeight / 360)))
+      canvas.style.width = 640 * z + 'px'
+      canvas.style.height = 360 * z + 'px'
+    }
+    window.addEventListener('resize', window.__fitCanvas)
+  </script>
   <div id="ui-root"></div>
   <script type="module" src="/src/main.js"></script>
 </body>
