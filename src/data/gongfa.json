@@ -1,0 +1,17 @@
+[
+  {
+    "id": "gongfa-kunlun-zhengfa",
+    "name": "昆仑正法",
+    "element": "none",
+    "faction": "fac-kunlun",
+    "tiers": 6,
+    "cultivateBonus": 1.2,
+    "tierBonus": [
+      { "tier": 1, "attrs": { "mp": 10 } },
+      { "tier": 2, "attrs": { "mp": 15 } }
+    ],
+    "unlockSkills": ["skill-huo-qiu"],
+    "req": { "realm": 0 },
+    "desc": "昆仑入门前引气之法，中正平和，最宜凡人筑基。"
+  }
+]

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "mq-1-01",
+    "name": "尸香为引",
+    "type": "mq",
+    "level": 1,
+    "state": "available",
+    "giver": "npc-xuan-yang",
+    "summary": "玄阳子托你从镇东僵尸身上取回三份尸香，换取火球术残页。",
+    "objective": { "type": "collect", "item": "item-mat-shixiong", "qty": 3 },
+    "flags": ["flag-mq1-01-done"],
+    "prereq": { "quests": [] },
+    "reward": { "exp": 60, "stones": 40, "items": [{ "item": "item-book-huoqiu", "qty": 1 }] },
+    "nextQuests": ["mq-1-02"]
+  },
+  {
+    "id": "mq-1-02",
+    "name": "初窥门径",
+    "type": "mq",
+    "level": 1,
+    "state": "locked",
+    "giver": "npc-xuan-yang",
+    "summary": "（后续章节内容）火球术既成，玄阳子指点你往青云镇深处寻访筑基之路。",
+    "objective": { "type": "reach", "target": "realm-1" },
+    "flags": [],
+    "prereq": { "quests": ["mq-1-01"] },
+    "reward": { "exp": 120, "stones": 60, "items": [] },
+    "nextQuests": []
+  },
+  {
+    "id": "sq-qy-01",
+    "name": "王嫂的冬衣",
+    "type": "sq",
+    "level": 1,
+    "state": "available",
+    "giver": "npc-wang-sao",
+    "summary": "替悦来客栈的王嫂收集五张狼皮，她出四十块灵石。",
+    "objective": { "type": "collect", "item": "item-mat-langpi", "qty": 5 },
+    "flags": [],
+    "prereq": { "quests": [] },
+    "reward": { "exp": 30, "stones": 40, "items": [] },
+    "nextQuests": []
+  }
+]

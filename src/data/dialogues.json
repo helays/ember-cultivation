@@ -1,0 +1,130 @@
+[
+  {
+    "id": "dlg-xuanyang-root",
+    "npc": "npc-xuan-yang",
+    "text": "这位小友，末法之年肯往修行路上走的，不多了。老道玄阳，在此结庐有些年头。",
+    "choices": [
+      {
+        "text": "向道之人，还请前辈指点。",
+        "next": "dlg-xuanyang-quest-offer"
+      },
+      {
+        "text": "只是路过。",
+        "next": null
+      }
+    ]
+  },
+  {
+    "id": "dlg-xuanyang-quest-offer",
+    "npc": "npc-xuan-yang",
+    "text": "镇东草地近来僵尸夜行。你若肯替老道取回三份尸香，便将这火球术残页相授——如今灵气枯竭，多一手防身的术法，总是好的。",
+    "choices": [
+      {
+        "text": "好，我去去就回。",
+        "next": null,
+        "effects": [
+          {
+            "type": "quest",
+            "quest": "mq-1-01",
+            "state": "active"
+          }
+        ]
+      },
+      {
+        "text": "容我再想想。",
+        "next": null
+      }
+    ]
+  },
+  {
+    "id": "dlg-xuanyang-turnin",
+    "npc": "npc-xuan-yang",
+    "text": "尸香的气息……嗯，成色不错。残页你拿去，好生参详。",
+    "conditions": [
+      {
+        "type": "hasItem",
+        "item": "item-mat-shixiong",
+        "qty": 3
+      }
+    ],
+    "choices": [
+      {
+        "text": "（交付三份尸香）",
+        "next": null,
+        "effects": [
+          {
+            "type": "consume",
+            "item": "item-mat-shixiong",
+            "qty": 3
+          },
+          {
+            "type": "item",
+            "item": "item-book-huoqiu",
+            "qty": 1
+          },
+          {
+            "type": "exp",
+            "value": 60
+          },
+          {
+            "type": "stone",
+            "value": 40
+          },
+          {
+            "type": "quest",
+            "quest": "mq-1-01",
+            "state": "completed"
+          },
+          {
+            "type": "flag",
+            "key": "flag-mq1-01-done",
+            "value": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dlg-wangsao-root",
+    "npc": "npc-wang-sao",
+    "text": "哟，小道爷！住店还是吃饭？——对了，东边山狼闹得凶，你要是顺手打了狼，把皮子留给嫂子，五张算你四十块灵石。",
+    "choices": [
+      {
+        "text": "狼皮我这里有五张。（领取跑腿钱）",
+        "next": null,
+        "conditions": [
+          {
+            "type": "hasItem",
+            "item": "item-mat-langpi",
+            "qty": 5
+          }
+        ],
+        "effects": [
+          {
+            "type": "consume",
+            "item": "item-mat-langpi",
+            "qty": 5
+          },
+          {
+            "type": "stone",
+            "value": 40
+          },
+          {
+            "type": "favor",
+            "npc": "npc-wang-sao",
+            "value": 10
+          },
+          {
+            "type": "quest",
+            "quest": "sq-qy-01",
+            "state": "completed"
+          }
+        ]
+      },
+      {
+        "text": "先不了，嫂子忙。",
+        "next": null
+      }
+    ]
+  }
+]

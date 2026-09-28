@@ -1,0 +1,104 @@
+[
+  {
+    "id": "item-dan-huiqi",
+    "name": "回气丹",
+    "category": "dan",
+    "level": 1,
+    "desc": "下品丹药，服下恢复五十点生命。",
+    "price": 20,
+    "stackable": true,
+    "useEffects": [{ "type": "hp", "value": 50 }]
+  },
+  {
+    "id": "item-dan-zhuji",
+    "name": "筑基丹",
+    "category": "dan",
+    "level": 2,
+    "desc": "筑基机缘之物。突破筑基时服用可大幅提升成功率。",
+    "price": 200,
+    "stackable": true,
+    "useEffects": []
+  },
+  {
+    "id": "item-fu-qixie",
+    "name": "驱邪符",
+    "category": "fu",
+    "level": 1,
+    "desc": "茅山手笔，不耗灵力即可驱邪（世界观铁律三）。",
+    "price": 35,
+    "stackable": true,
+    "useEffects": []
+  },
+  {
+    "id": "item-mat-shixiong",
+    "name": "尸香",
+    "category": "mat",
+    "level": 1,
+    "desc": "僵尸身上凝出的异香，玄阳子配制辟邪丹的药材。",
+    "price": 8,
+    "stackable": true,
+    "useEffects": []
+  },
+  {
+    "id": "item-mat-langpi",
+    "name": "狼皮",
+    "category": "mat",
+    "level": 1,
+    "desc": "饥饿山狼的皮毛，可御寒，客栈老板娘收着做冬衣。",
+    "price": 6,
+    "stackable": true,
+    "useEffects": []
+  },
+  {
+    "id": "item-mat-hunshi",
+    "name": "魂石",
+    "category": "mat",
+    "level": 1,
+    "desc": "游魂消散后凝住的微光石子。",
+    "price": 10,
+    "stackable": true,
+    "useEffects": []
+  },
+  {
+    "id": "item-mat-tiekuang",
+    "name": "铁矿",
+    "category": "mat",
+    "level": 1,
+    "desc": "叛军哨兵留下的铁料。",
+    "price": 7,
+    "stackable": true,
+    "useEffects": []
+  },
+  {
+    "id": "item-fabao-qingfeng-jian",
+    "name": "青锋剑",
+    "category": "fabao",
+    "level": 2,
+    "desc": "凡铁短剑，胜在开过锋。装备：攻击 +4。",
+    "price": 120,
+    "stackable": false,
+    "slot": "weapon",
+    "equipAttrs": { "attack": 4 }
+  },
+  {
+    "id": "item-fabao-yunjin-pao",
+    "name": "云锦袍",
+    "category": "fabao",
+    "level": 2,
+    "desc": "云纹棉袍，挡风挡妖气。装备：防御 +3。",
+    "price": 100,
+    "stackable": false,
+    "slot": "armor",
+    "equipAttrs": { "defense": 3 }
+  },
+  {
+    "id": "item-book-huoqiu",
+    "name": "火球术残页",
+    "category": "book",
+    "level": 1,
+    "desc": "记载火球术的残页。研读后可入门此术。",
+    "price": 50,
+    "stackable": false,
+    "useEffects": [{ "type": "unlockSkill", "skill": "skill-huo-qiu" }]
+  }
+]

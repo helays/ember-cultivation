@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import { bus, EVT } from '@/core/bus.js'
 import { logger } from '@/core/logger.js'
 import { clearPendingMarkers } from '@/core/saveManager.js'
+import '@/core/loadTables.js' // bulk table load + registry index (doc/13 §5)
 
 // Startup chain head (doc/12 §5.2): stays idle under the Vue main menu,
 // then boots WorldScene when the menu emits game:start with session state.

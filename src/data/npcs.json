@@ -1,0 +1,32 @@
+[
+  {
+    "id": "npc-xuan-yang",
+    "name": "玄阳子",
+    "faction": "fac-kunlun",
+    "home": "map-qingyun",
+    "spawn": "spawn-xuanyang",
+    "role": ["guide", "quest"],
+    "favorInit": 10,
+    "favorTiers": {},
+    "lover": false,
+    "companion": false,
+    "dialogRoot": "dlg-xuanyang-root",
+    "position": { "x": 256, "y": 480 },
+    "desc": "青云镇外结庐的昆仑散修，眉目疏朗，袖口打着补丁。"
+  },
+  {
+    "id": "npc-wang-sao",
+    "name": "王嫂",
+    "faction": "fac-court",
+    "home": "map-qingyun",
+    "spawn": "spawn-wangsao",
+    "role": ["shop", "quest"],
+    "favorInit": 15,
+    "favorTiers": {},
+    "lover": false,
+    "companion": false,
+    "dialogRoot": "dlg-wangsao-root",
+    "position": { "x": 384, "y": 400 },
+    "desc": "悦来客栈的老板娘，刀子嘴豆腐心，收狼皮做冬衣。"
+  }
+]

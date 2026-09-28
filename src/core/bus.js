@@ -13,6 +13,7 @@ export const EVT = {
   DIALOG_CLOSE: 'dialog:close',
   MENU_TOGGLE: 'menu:toggle',
   BATTLE_START: 'battle:start',
+  BATTLE_SUMMON: 'battle:summon',
   BATTLE_COMMAND: 'battle:command',
   BATTLE_TURN: 'battle:turn',
   BATTLE_END: 'battle:end',
@@ -22,5 +23,6 @@ export const EVT = {
   SAVE_REQUEST: 'save:request',
   SAVE_WRITTEN: 'save:written',
   TOAST: 'ui:toast',
+  EVENT_PROBE: 'event:probe',
   SCENE_TRANSITION: 'world:transition',
 }

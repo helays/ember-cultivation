@@ -1,44 +1,73 @@
-// Minimal config-table registry (M3 scope). The full version (BootScene bulk
-// load + cross-table validation) lands in M4 per doc/15 §2.5; the public
-// surface below is designed to stay stable so callers don't churn.
-import enemiesJson from '@/data/enemies.json'
-import skillsJson from '@/data/skills.json'
-import encountersJson from '@/data/encounters.json'
+// Config-table registry (doc/13 §5): single init, Map indexes, the only
+// module that holds table state. Tables are INJECTED by initRegistry():
+//   - Browser: src/core/loadTables.js imports the JSONs via Vite and BootScene
+//     calls init() (doc/12 §5.2 boot flow).
+//   - Node (build gate, runtime/tools): callers read the files themselves and
+//     pass plain objects — keeps this module free of import-attribute issues.
+import { logger } from './logger.js'
 
-const enemies = new Map(enemiesJson.map((e) => [e.id, e]))
-const skills = new Map(skillsJson.map((s) => [s.id, s]))
-const encounters = new Map(encountersJson.map((e) => [e.id, e]))
+let indexes = null
 
-export function getEnemy(id) {
-  return enemies.get(id) ?? null
+export function initRegistry(tables) {
+  indexes = {}
+  for (const [name, list] of Object.entries(tables)) {
+    indexes[name] = new Map((list ?? []).map((e) => [e.id, e]))
+  }
+  logger.debug('registry', `indexed ${Object.keys(indexes).length} tables`)
 }
 
-export function getSkill(id) {
-  return skills.get(id) ?? null
+export function isReady() {
+  return !!indexes
+}
+
+function table(name) {
+  if (!indexes) throw new Error('registry not initialized — call initRegistry() at boot (doc/13 §5)')
+  return indexes[name] ?? new Map()
+}
+
+// Typed getters
+export const getEnemy = (id) => table('enemies').get(id) ?? null
+export const getSkill = (id) => table('skills').get(id) ?? null
+export const getItem = (id) => table('items').get(id) ?? null
+export const getGongfa = (id) => table('gongfa').get(id) ?? null
+export const getNpc = (id) => table('npcs').get(id) ?? null
+export const getDialogue = (id) => table('dialogues').get(id) ?? null
+export const getQuest = (id) => table('quests').get(id) ?? null
+export const getEvent = (id) => table('events').get(id) ?? null
+export const getEncounter = (id) => table('encounters').get(id) ?? null
+
+/** All entries of a table (for map/NPC placement and panels). */
+export function listTable(name) {
+  return [...(table(name).values())]
+}
+
+/** Generic lookup by id, for validation and tools. */
+export function getById(id) {
+  if (typeof id !== 'string' || !indexes) return null
+  for (const map of Object.values(indexes)) {
+    if (map.has(id)) return map.get(id)
+  }
+  return null
 }
 
 export function skillsById(ids) {
   const out = {}
-  for (const id of ids) {
-    const skill = skills.get(id)
+  for (const id of ids ?? []) {
+    const skill = table('skills').get(id)
     if (skill) out[id] = skill
   }
   return out
 }
 
-export function getEncounter(id) {
-  return encounters.get(id) ?? null
-}
-
 /** Roll an encounter group: weighted pick, returns enemy definition ids. */
 export function rollEncounter(encounterId, rng = Math.random) {
-  const table = encounters.get(encounterId)
-  if (!table) return []
-  const total = table.groups.reduce((sum, g) => sum + g.weight, 0)
+  const def = table('encounters').get(encounterId)
+  if (!def) return []
+  const total = def.groups.reduce((sum, g) => sum + g.weight, 0)
   let roll = rng() * total
-  for (const group of table.groups) {
+  for (const group of def.groups) {
     roll -= group.weight
     if (roll <= 0) return [...group.enemies]
   }
-  return [...table.groups[table.groups.length - 1].enemies]
+  return [...def.groups[def.groups.length - 1].enemies]
 }

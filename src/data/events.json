@@ -1,0 +1,13 @@
+[
+  {
+    "id": "evt-qy-intro-1",
+    "name": "青云镇口的老槐树",
+    "map": "map-qingyun",
+    "trigger": { "once": true, "chance": 1.0, "cooldown": 0 },
+    "conditions": [],
+    "effects": [
+      { "type": "flag", "key": "flag-qy-intro-seen", "value": true },
+      { "type": "exp", "value": 10 }
+    ]
+  }
+]
