@@ -1,2 +1,37 @@
-/.idea/
+# 《末法仙途》Git 忽略规则
+# 约定：一切临时文件、测试工具、脚本产物只放 runtime/，永不提交（见 doc/13 §7）
+
+# ── 运行期临时产物（临时文件 / 测试工具 / 报告）────────────────
 /runtime/
+
+# ── 依赖与构建产物 ────────────────────────────────────────────
+node_modules/
+dist/
+dist-ssr/
+dev-dist/
+.vite/
+coverage/
+*.tsbuildinfo
+
+# ── 环境变量与本地配置 ────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.local
+
+# ── 日志 ──────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ── 编辑器与 IDE ──────────────────────────────────────────────
+/.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# ── 操作系统 ──────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
