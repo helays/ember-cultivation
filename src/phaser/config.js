@@ -16,6 +16,13 @@ export function createPhaserConfig(parent) {
     pixelArt: true,
     roundPixels: true,
     antialias: false,
+    physics: {
+      default: 'arcade',
+      arcade: {
+        gravity: 0,
+        debug: false,
+      },
+    },
     scale: {
       mode: Phaser.Scale.FIT,
       autoCenter: Phaser.Scale.CENTER_BOTH,
