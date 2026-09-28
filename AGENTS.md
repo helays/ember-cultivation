@@ -63,7 +63,7 @@
 | 子目录 | 用途 |
 |---|---|
 | `runtime/tmp/` | 一次性草稿、导出中间件、抓取结果（随时可删） |
-| `runtime/tools/` | 校验脚本、数值模拟脚本、批量生成脚本（本地保留，不入库） |
+| `runtime/tools/` | 尚未稳定的本地脚本；配置表校验器的本地入口 `validate.js`（规则在 `src/core/validate.js`，不入库） |
 | `runtime/reports/` | 脚本输出（校验报告、成长曲线、平衡数据） |
 | `runtime/fixtures/` | 测试用存档样本、配置表快照 |
 
@@ -74,14 +74,20 @@
 ## 五、常用命令（工程初始化后生效）
 
 ```bash
-pnpm install     # 安装依赖
-pnpm dev         # 开发服务器
-pnpm build       # 生产构建
-pnpm preview     # 预览构建产物
-pnpm validate    # 校验配置表（脚本放 runtime/tools/，见 doc/11 §7）
+pnpm install       # 安装依赖
+pnpm dev           # 开发服务器
+pnpm build         # 生产构建
+pnpm preview       # 预览构建产物
+pnpm validate      # 校验配置表（规则在 src/core/validate.js，本地入口 runtime/tools/validate.js，见 doc/11 §7）
+pnpm assets        # 重建素材并校验（scripts/build-assets.mjs，见 doc/14 §4）
+pnpm assets:check  # 只校验素材、不重新生成（CI 用）
 ```
 
-> 当前仓库**尚未初始化工程**（无 `package.json`），上述命令在阶段 M0 落地后生效。见 [doc/15](doc/15-开发路线图与里程碑.md)。
+> 当前仓库**尚未初始化工程**（无 `package.json`），上述 pnpm 命令在阶段 M0 落地后生效。
+> **在此之前，素材生产线可直接用 node 运行**（零第三方依赖）：
+> `node scripts/build-assets.mjs`（重建 + 校验）、`node scripts/build-assets.mjs --check`（只校验）、
+> `node scripts/inspect-png.mjs <文件> --crop x,y,w,h`（打印 ASCII 预览与接缝指标）。
+> 见 [doc/15](doc/15-开发路线图与里程碑.md)。
 
 ---
 
