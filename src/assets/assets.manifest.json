@@ -169,6 +169,18 @@
       "tags": ["ui", "bar", "mind"]
     },
     {
+      "id": "ui-bar-exp",
+      "path": "src/assets/ui/bars/ui-bar-exp.png",
+      "kind": "ui",
+      "spec": { "width": 64, "height": 8 },
+      "source": "L0",
+      "generator": "scripts/gen-ui.mjs",
+      "status": "placeholder",
+      "license": "project",
+      "author": "EmberCultivation contributors",
+      "tags": ["ui", "bar", "exp"]
+    },
+    {
       "id": "ui-btn-primary-normal",
       "path": "src/assets/ui/buttons/ui-btn-primary-normal.png",
       "kind": "ui",
@@ -242,6 +254,84 @@
       "license": "project",
       "author": "EmberCultivation contributors",
       "tags": ["icon", "item", "fu", "qixie"]
+    },
+    {
+      "id": "icon-fac-kunlun",
+      "path": "src/assets/ui/icons/icon-fac-kunlun.png",
+      "kind": "icon",
+      "spec": { "width": 32, "height": 32 },
+      "source": "L1",
+      "generator": "scripts/render-pixels.mjs",
+      "sourceFile": "src/assets/pixel/ui/icon-fac-kunlun.px.txt",
+      "status": "placeholder",
+      "license": "project",
+      "author": "EmberCultivation contributors",
+      "tags": ["icon", "fac", "kunlun"]
+    },
+    {
+      "id": "icon-fac-jiejiao",
+      "path": "src/assets/ui/icons/icon-fac-jiejiao.png",
+      "kind": "icon",
+      "spec": { "width": 32, "height": 32 },
+      "source": "L1",
+      "generator": "scripts/render-pixels.mjs",
+      "sourceFile": "src/assets/pixel/ui/icon-fac-jiejiao.px.txt",
+      "status": "placeholder",
+      "license": "project",
+      "author": "EmberCultivation contributors",
+      "tags": ["icon", "fac", "jiejiao"]
+    },
+    {
+      "id": "icon-fac-maoshan",
+      "path": "src/assets/ui/icons/icon-fac-maoshan.png",
+      "kind": "icon",
+      "spec": { "width": 32, "height": 32 },
+      "source": "L1",
+      "generator": "scripts/render-pixels.mjs",
+      "sourceFile": "src/assets/pixel/ui/icon-fac-maoshan.px.txt",
+      "status": "placeholder",
+      "license": "project",
+      "author": "EmberCultivation contributors",
+      "tags": ["icon", "fac", "maoshan"]
+    },
+    {
+      "id": "icon-fac-yao",
+      "path": "src/assets/ui/icons/icon-fac-yao.png",
+      "kind": "icon",
+      "spec": { "width": 32, "height": 32 },
+      "source": "L1",
+      "generator": "scripts/render-pixels.mjs",
+      "sourceFile": "src/assets/pixel/ui/icon-fac-yao.px.txt",
+      "status": "placeholder",
+      "license": "project",
+      "author": "EmberCultivation contributors",
+      "tags": ["icon", "fac", "yao"]
+    },
+    {
+      "id": "icon-fac-court",
+      "path": "src/assets/ui/icons/icon-fac-court.png",
+      "kind": "icon",
+      "spec": { "width": 32, "height": 32 },
+      "source": "L1",
+      "generator": "scripts/render-pixels.mjs",
+      "sourceFile": "src/assets/pixel/ui/icon-fac-court.px.txt",
+      "status": "placeholder",
+      "license": "project",
+      "author": "EmberCultivation contributors",
+      "tags": ["icon", "fac", "court"]
+    },
+    {
+      "id": "icon-fac-sanxiu",
+      "path": "src/assets/ui/icons/icon-fac-sanxiu.png",
+      "kind": "icon",
+      "spec": { "width": 32, "height": 32 },
+      "source": "L1",
+      "generator": "scripts/render-pixels.mjs",
+      "sourceFile": "src/assets/pixel/ui/icon-fac-sanxiu.px.txt",
+      "status": "placeholder",
+      "license": "project",
+      "author": "EmberCultivation contributors",
+      "tags": ["icon", "fac", "sanxiu"]
     },
 
     {

@@ -5,7 +5,7 @@
  * 产出与尺寸严格对齐 src/assets/assets.manifest.json 的 spec（清单是只读真源）：
  *   ui-frame-panel-9slice   48×48   九宫格边距 16px
  *   ui-frame-dialog-9slice  48×48   九宫格边距 16px
- *   ui-bar-hp / mp / mind   64×8
+ *   ui-bar-hp / mp / mind / exp   64×8
  *   ui-btn-primary-{normal,hover,active,disabled}  48×16
  *
  * ── 九宫格边距 ──────────────────────────────────────────────────
@@ -153,6 +153,7 @@ const SHEETS = [
   { id: 'ui-bar-hp', width: 64, height: 8, fn: barArt(C.BLOOD, C.FROST) },
   { id: 'ui-bar-mp', width: 64, height: 8, fn: barArt(C.SPIRIT, C.FROST) },
   { id: 'ui-bar-mind', width: 64, height: 8, fn: barArt(C.TALISMAN, C.FROST) },
+  { id: 'ui-bar-exp', width: 64, height: 8, fn: barArt(C.EMBER, C.FROST) },
   { id: 'ui-btn-primary-normal', width: 48, height: 16, fn: buttonArt('normal') },
   { id: 'ui-btn-primary-hover', width: 48, height: 16, fn: buttonArt('hover') },
   { id: 'ui-btn-primary-active', width: 48, height: 16, fn: buttonArt('active') },
