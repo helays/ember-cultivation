@@ -1,0 +1,20 @@
+{
+  "id": "vfx-skill-huo-qiu",
+  "out": "src/assets/vfx/skills/vfx-skill-huo-qiu.png",
+  "kind": "vfx",
+  "cell": [
+    64,
+    64
+  ],
+  "columns": 8,
+  "frames": [
+    "huo-qiu-f0.px.txt",
+    "huo-qiu-f1.px.txt",
+    "huo-qiu-f2.px.txt",
+    "huo-qiu-f3.px.txt",
+    "huo-qiu-f4.px.txt",
+    "huo-qiu-f5.px.txt",
+    "huo-qiu-f6.px.txt",
+    "huo-qiu-f7.px.txt"
+  ]
+}

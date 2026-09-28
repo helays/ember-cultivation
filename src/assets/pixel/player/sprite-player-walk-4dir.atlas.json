@@ -1,0 +1,28 @@
+{
+  "id": "sprite-player-walk-4dir",
+  "out": "src/assets/sprites/player/sprite-player-walk-4dir.png",
+  "kind": "sprite",
+  "cell": [
+    32,
+    48
+  ],
+  "columns": 4,
+  "frames": [
+    "walk-down-f0.px.txt",
+    "walk-down-f1.px.txt",
+    "walk-down-f2.px.txt",
+    "walk-down-f3.px.txt",
+    "walk-left-f0.px.txt",
+    "walk-left-f1.px.txt",
+    "walk-left-f2.px.txt",
+    "walk-left-f3.px.txt",
+    "walk-right-f0.px.txt",
+    "walk-right-f1.px.txt",
+    "walk-right-f2.px.txt",
+    "walk-right-f3.px.txt",
+    "walk-up-f0.px.txt",
+    "walk-up-f1.px.txt",
+    "walk-up-f2.px.txt",
+    "walk-up-f3.px.txt"
+  ]
+}
