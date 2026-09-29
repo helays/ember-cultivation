@@ -1,0 +1,7 @@
+{
+  "spiritDensityByLevel": [1.0, 1.4, 1.8, 2.2, 2.5],
+  "fieldSlotsByLevel": [2, 3, 4, 5, 6],
+  "upgradeCost": [{ "stones": 200 }, { "stones": 500 }, { "stones": 1200 }, { "stones": 3000 }],
+  "facilities": ["alchemy", "crafting", "talisman", "storage"],
+  "desc": "洞府：末法时代修行人的一方净土。灵气浓度随等级提升，打坐效率随之增长。"
+}

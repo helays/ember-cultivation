@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue'
 import { bus, EVT } from '@/core/bus.js'
+import { exportSave, importSave } from '@/core/saveManager.js'
 import { useUiStore } from '../stores/uiStore.js'
 import { useSaveStore } from '../stores/saveStore.js'
 
@@ -71,6 +72,35 @@ async function onWritten({ slot, ok }) {
   bus.emit(EVT.MENU_TOGGLE, { menu: 'save' })
 }
 
+async function doExport() {
+  const blob = await exportSave(confirming.value ?? 'slot-1')
+  if (!blob) return
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = 'ember-save.json'
+  a.click()
+  URL.revokeObjectURL(url)
+}
+
+async function doImport(event) {
+  const file = event.target.files?.[0]
+  if (!file) return
+  const slot = confirming.value ?? 'slot-1'
+  try {
+    const result = await importSave(file, slot)
+    if (result.ok) {
+      await save.refreshSlots()
+      ui.pushToast({ text: '外来的卡带插上了，内容已被读入。', level: 'info' })
+    } else {
+      ui.pushToast({ text: '写入没成功，卡带还是上一次的样子。', level: 'error' })
+    }
+  } catch (err) {
+    ui.pushToast({ text: '这枚卡带被人拆开过或已损坏：' + err.message, level: 'error' })
+  }
+  event.target.value = ''
+}
+
 function stabilityColor(value) {
   if (value >= 70) return '#4fd1c5'
   if (value >= 30) return '#e0c070'
@@ -97,6 +127,10 @@ onUnmounted(() => {
   <div class="panel-wrap">
     <div class="panel">
       <div class="panel-head">
+        <span class="io">
+          <button class="plain" @click="doExport">导出</button>
+          <label class="plain">导入<input type="file" accept=".json" hidden @change="doImport" /></label>
+        </span>
         <span>这里可以记录你的道途。</span>
         <button class="close" :disabled="writing" @click="close">✕</button>
       </div>

@@ -1,0 +1,9 @@
+[
+  { "id": "end-restore", "name": "补天", "type": "light", "desc": "随玄阳子重锁周天大阵，灵气归序，凡人得续五百年。", "inherit": { "expMul": 0.1 } },
+  { "id": "end-break", "name": "破阵", "type": "dark", "desc": "砸碎周天星斗大阵，放灵气入人间——仙路断绝，众生平等。", "inherit": { "encounterRateMul": -0.1 } },
+  { "id": "end-seize", "name": "新天庭", "type": "dark", "desc": "接过商羊的归墟之座，成为末法时代新的执阵人。", "inherit": { "dropMul": 0.1 } },
+  { "id": "end-retire", "name": "归隐", "type": "light", "desc": "封剑归隐青云镇，开馆授徒，做一个讲述旧时代故事的说书人。", "inherit": { "mindRegenMul": 0.1 } },
+  { "id": "end-ember", "name": "余烬", "type": "neutral", "desc": "以身殉道，点亮归墟最后一粒火种。", "inherit": { "expMul": 0.05, "dropMul": 0.05 } },
+  { "id": "end-transcend", "name": "出阵", "type": "neutral", "desc": "看破归墟幻象，从大阵的缝隙中走出去——去向文档没有记载的地方。", "inherit": { "expMul": 0.15 } },
+  { "id": "end-seal", "name": "封山", "type": "light", "desc": "联合六势力封山百年，等一个灵气回涌的纪元。", "inherit": { "mindRegenMul": 0.05, "dropMul": 0.05 } }
+]

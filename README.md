@@ -65,3 +65,8 @@ pnpm dev
 世界观、任务、数值与全部工程约定都在 [`doc/`](doc/00-文档索引.md) 下，入口是 **[文档索引](doc/00-文档索引.md)**。
 
 参与开发前请先读 **[AGENTS.md](AGENTS.md)**（项目约定与文档地图）。
+
+## 素材与署名
+
+- 像素字体：[Fusion Pixel Font](https://github.com/TakWolf/fusion-pixel-font)（TakWolf，SIL OFL 1.1）
+- 其余音像素材均由本项目生成（MIT，见 doc/14 附录 A 登记表）

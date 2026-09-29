@@ -12,6 +12,12 @@ import dialoguesJson from '../data/dialogues.json'
 import questsJson from '../data/quests.json'
 import eventsJson from '../data/events.json'
 import affixesJson from '../data/affixes.json'
+import endingsJson from '../data/endings.json'
+import homesteadJson from '../data/homestead.json'
+import talismansJson from '../data/talismans.json'
+import craftingJson from '../data/crafting.json'
+import alchemyJson from '../data/alchemy.json'
+import farmingJson from '../data/farming.json'
 
 export const TABLES = {
   enemies: enemiesJson,
@@ -24,6 +30,12 @@ export const TABLES = {
   quests: questsJson,
   events: eventsJson,
   affixes: affixesJson,
+  farming: farmingJson,
+  alchemy: alchemyJson,
+  crafting: craftingJson,
+  talismans: talismansJson,
+  homestead: homesteadJson,
+  endings: endingsJson,
 }
 
 initRegistry(TABLES)

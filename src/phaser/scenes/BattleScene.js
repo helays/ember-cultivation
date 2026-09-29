@@ -305,16 +305,28 @@ export class BattleScene extends Phaser.Scene {
   }
 
   floatText(x, y, text, color, size) {
-    const label = this.add.text(x, y, text, {
-      fontFamily: 'var(--font-ui)', fontSize: `${size}px`, color, resolution: 1,
-    }).setOrigin(0.5).setDepth(20)
+    // Pooled damage numbers (doc/15 §2.7 对象池化).
+    this.floatPool = this.floatPool ?? []
+    let label = this.floatPool.find((t) => !t.visible)
+    if (!label) {
+      label = this.add.text(x, y, '', {
+        fontFamily: 'var(--font-ui)', fontSize: '12px', color, resolution: 1,
+      }).setOrigin(0.5).setDepth(20)
+      this.floatPool.push(label)
+    }
+    label.setText(text)
+    label.setStyle({ color, fontSize: size + 'px' })
+    label.setPosition(x, y)
+    label.setVisible(true)
+    label.setAlpha(1)
+    this.tweens.killTweensOf(label)
     this.tweens.add({
       targets: label,
       y: y - 24,
       alpha: 0,
       duration: 640,
       ease: 'Cubic.easeOut',
-      onComplete: () => label.destroy(),
+      onComplete: () => label.setVisible(false),
     })
   }
 

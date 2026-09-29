@@ -19,6 +19,23 @@ app.mount('#ui-root')
 // scenes can build save payloads without importing Pinia (doc/12 §10.3).
 setPayloadComposer(() => useSaveStore(pinia).buildPayload())
 
+// New-version toast (doc/15 §2.7): hint when the service worker updates.
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').then((reg) => {
+    reg.addEventListener('updatefound', () => {
+      const w = reg.installing
+      w?.addEventListener('statechange', () => {
+        if (w.state === 'installed' && navigator.serviceWorker.controller) {
+          const el = document.createElement('div')
+          el.textContent = '新版已就绪，刷新页面以更新。'
+          el.style.cssText = 'position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:999;background:#1d3b45;border:1px solid #e0c070;color:#e0c070;padding:8px 16px;font-size:12px'
+          document.body.appendChild(el)
+          setTimeout(() => el.remove(), 6000)
+        }
+      })
+    })
+  }).catch(() => {})
+}
 // slot-auto skeleton (doc/15 §2.2): best-effort hidden auto-backup on exit.
 window.addEventListener('beforeunload', () => {
   if (useUiStore(pinia).phase !== 'world') return

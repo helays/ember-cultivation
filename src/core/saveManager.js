@@ -20,6 +20,13 @@ let memory = null
 const channel = typeof BroadcastChannel !== 'undefined'
   ? new BroadcastChannel('ec-save')
   : null
+// Cross-tab conflict notice (doc/12 §1.4): toast when another tab saves.
+channel?.addEventListener('message', (event) => {
+  const data = event.data
+  if (data?.type === 'written' && data.writerTabId !== TAB_ID) {
+    logger.warn('saveManager', `slot ${data.slot} updated by another tab (rev ${data.rev})`)
+  }
+})
 
 async function getDb() {
   if (db || memory) return db
@@ -302,6 +309,7 @@ export async function listSlots() {
       playTime: p?.playTime ?? 0,
       dayLabel: p ? `第${p.player.time.year}年${p.player.time.month}月${p.player.time.day}日` : '',
       stability: p?.slotMeta?.stability ?? 70,
+      hasEnding: (p?.codex?.endings ?? []).length > 0,
     })
   }
   return summaries
@@ -422,6 +430,35 @@ export async function recover(slot) {
   const lastGood = await getRecord('backup', 'bk-last-good')
   if (lastGood?.payload) return migrate(lastGood.payload)
   return null
+}
+
+/** Export a slot as a JSON blob (doc/12 §6.1). Machine fields stripped. */
+export async function exportSave(slot) {
+  const record = await getRecord('saves', slot)
+  if (!record?.payload) return null
+  const payload = JSON.parse(JSON.stringify(record.payload))
+  delete payload.slotMeta.writerTabId
+  return new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' })
+}
+
+/** Import a JSON save into a slot (doc/12 §6.2): migrate + validate first. */
+export async function importSave(file, slot) {
+  const text = await file.text()
+  let raw
+  try {
+    raw = JSON.parse(text)
+  } catch {
+    throw new Error('文件不是合法 JSON')
+  }
+  const payload = migrate(raw)
+  const result = validate(payload)
+  if (result.level === 'error') throw new Error('存档校验失败：' + result.issues.join('; '))
+  return writeSlot(slot, payload)
+}
+
+/** Memory-fallback indicator for the degradation banner (doc/12 §1.4). */
+export function isMemoryMode() {
+  return !!memory && !db
 }
 
 /** Boot-time WAL cleanup: interrupted writes leave `<slot>/pending` markers (doc/12 §1.4). */

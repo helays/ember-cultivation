@@ -1,0 +1,12 @@
+[
+  {
+    "id": "craft-qingfeng", "name": "锻造青锋剑", "inputs": [{ "item": "item-mat-tiekuang", "qty": 4 }, { "item": "item-mat-shougu", "qty": 1 }],
+    "output": { "item": "item-fabao-qingfeng-jian", "qty": 1 }, "timeCost": 3, "reqFacility": 1,
+    "desc": "铁矿为骨，兽骨为淬。"
+  },
+  {
+    "id": "craft-hufu-pao", "name": "缝制护符袍", "inputs": [{ "item": "item-mat-langpi", "qty": 3 }, { "item": "item-fu-qixie", "qty": 1 }],
+    "output": { "item": "item-fabao-hufu-pao", "qty": 1 }, "timeCost": 2, "reqFacility": 1,
+    "desc": "狼皮衬里，驱邪符缝边。"
+  }
+]

@@ -2,6 +2,8 @@ import Phaser from 'phaser'
 import mapQingyunUrl from '@/data/maps/map-qingyun.json?url'
 import mapHoushanUrl from '@/data/maps/map-houshan.json?url'
 import mapLuanzangUrl from '@/data/maps/map-luanzang.json?url'
+import mapDongfuUrl from '@/data/maps/map-dongfu.json?url'
+import mapMfDingongUrl from '@/data/maps/map-mf-dingong.json?url'
 import townGroundUrl from '@/assets/tilesets/town/tileset-town-ground.png?url'
 import townBuildingUrl from '@/assets/tilesets/town/tileset-town-building.png?url'
 import townDecoUrl from '@/assets/tilesets/town/tileset-town-deco.png?url'
@@ -31,6 +33,22 @@ const MAPS = {
     tilesets: {
       'wilderness-ground': wildGroundUrl,
       'town-building': townBuildingUrl,
+      'town-deco': townDecoUrl,
+    },
+  },
+  'map-dongfu': {
+    url: mapDongfuUrl,
+    tilesets: {
+      'town-ground': townGroundUrl,
+      'town-building': townBuildingUrl,
+      'town-deco': townDecoUrl,
+    },
+  },
+  'map-mf-dingong': {
+    url: mapMfDingongUrl,
+    tilesets: {
+      'dungeon-ground': dunGroundUrl,
+      'dungeon-wall': dunWallUrl,
       'town-deco': townDecoUrl,
     },
   },

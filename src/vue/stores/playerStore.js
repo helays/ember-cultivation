@@ -48,7 +48,9 @@ export const usePlayerStore = defineStore('player', {
     companions: [],
     lover: null,
     newGamePlus: 0,
+    ngPlusInherit: { expMul: 1.0, mindRegenMul: 1.0, dropMul: 1.0, encounterRateMul: 1.0, endingsUnlocked: [] },
     rngSeed: 20240517,
+    homestead: { level: 1, spiritDensity: 1.0, fieldSlots: 0, fields: [], facilities: { alchemy: 0, crafting: 0, talisman: 0, storage: 0 } },
   }),
   getters: {
     realm: (state) => REALM_NAMES[state.realmIndex] ?? REALM_NAMES[0],
@@ -212,6 +214,31 @@ export const usePlayerStore = defineStore('player', {
     },
     gainExp(amount) {
       this.exp += amount
+    },
+    /** NG+ reset (doc/12 §8): fresh character, endings + inherit kept,
+     *  relationships/factions quartered. */
+    applyNgPlus(keptEndings, inherit) {
+      const defaults = usePlayerStore._defaults ?? null
+      void defaults
+      this.realmIndex = 0
+      this.stageIndex = 1
+      this.exp = 0
+      this.stones = Math.floor(this.stones * 0.25) + 50
+      this.hp = 100
+      this.maxHp = 100
+      this.mp = 50
+      this.maxMp = 50
+      this.attrs = { attack: 8, defense: 6, speed: 10 }
+      this.skills = [{ id: 'skill-huo-qiu', level: 1, cd: 0 }]
+      this.codex.endings = keptEndings
+      this.newGamePlus = (this.newGamePlus ?? 0) + 1
+      this.ngPlusInherit = {
+        expMul: inherit.expMul ?? 1.0,
+        mindRegenMul: inherit.mindRegenMul ?? 1.0,
+        dropMul: inherit.dropMul ?? 1.0,
+        encounterRateMul: inherit.encounterRateMul ?? 1.0,
+        endingsUnlocked: keptEndings,
+      }
     },
   },
 })

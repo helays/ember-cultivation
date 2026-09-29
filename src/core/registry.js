@@ -11,7 +11,10 @@ let indexes = null
 export function initRegistry(tables) {
   indexes = {}
   for (const [name, list] of Object.entries(tables)) {
-    indexes[name] = new Map((list ?? []).map((e) => [e.id, e]))
+    // Config objects (homestead) are not entry lists — keep them out of the
+    // id indexes; Homestead.vue reads them through their own module import.
+    if (!Array.isArray(list)) continue
+    indexes[name] = new Map(list.map((e) => [e.id, e]))
   }
   logger.debug('registry', `indexed ${Object.keys(indexes).length} tables`)
 }
@@ -36,6 +39,7 @@ export const getQuest = (id) => table('quests').get(id) ?? null
 export const getEvent = (id) => table('events').get(id) ?? null
 export const getEncounter = (id) => table('encounters').get(id) ?? null
 export const getAffix = (id) => table('affixes').get(id) ?? null
+export const getEnding = (id) => table('endings').get(id) ?? null
 
 /** Roll an affix for a map enemy (doc/15 §2.6): chance-based, may be null. */
 export function rollAffix(rng = Math.random) {

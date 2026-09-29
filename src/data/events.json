@@ -90,5 +90,206 @@
         "qty": 1
       }
     ]
+  },
+  {
+    "id": "evt-season-spring-rain",
+    "name": "春夜细雨",
+    "map": "map-houshan",
+    "trigger": {
+      "once": false,
+      "chance": 0.25,
+      "cooldown": 90
+    },
+    "conditions": [
+      {
+        "type": "season",
+        "season": "spring"
+      }
+    ],
+    "effects": [
+      {
+        "type": "weather",
+        "weather": "rain"
+      },
+      {
+        "type": "exp",
+        "value": 12
+      }
+    ]
+  },
+  {
+    "id": "evt-season-winter-wolf",
+    "name": "冬日狼群",
+    "map": "map-houshan",
+    "trigger": {
+      "once": false,
+      "chance": 0.3,
+      "cooldown": 120
+    },
+    "conditions": [
+      {
+        "type": "season",
+        "season": "winter"
+      }
+    ],
+    "effects": [
+      {
+        "type": "battle",
+        "enemy": "enemy-wolf",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "id": "evt-moon-full-ghost",
+    "name": "月圆夜行",
+    "map": "map-luanzang",
+    "trigger": {
+      "once": false,
+      "chance": 0.4,
+      "cooldown": 60
+    },
+    "conditions": [
+      {
+        "type": "flag",
+        "key": "flag-lz-tomb-found",
+        "value": true
+      }
+    ],
+    "effects": [
+      {
+        "type": "mind",
+        "value": -5
+      },
+      {
+        "type": "exp",
+        "value": 30
+      }
+    ]
+  },
+  {
+    "id": "evt-moon-full-market",
+    "name": "月圆鬼市",
+    "map": "map-qingyun",
+    "trigger": {
+      "once": false,
+      "chance": 0.5,
+      "cooldown": 90
+    },
+    "conditions": [
+      {
+        "type": "timeOfDay",
+        "day": false
+      }
+    ],
+    "effects": [
+      {
+        "type": "stone",
+        "value": 25
+      },
+      {
+        "type": "exp",
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "rq-lz-bone-pile",
+    "name": "枯骨堆",
+    "map": "map-luanzang",
+    "trigger": {
+      "once": false,
+      "chance": 0.35,
+      "cooldown": 60
+    },
+    "conditions": [],
+    "effects": [
+      {
+        "type": "randomItem",
+        "pool": [
+          "item-mat-hunshi",
+          "item-mat-tiekuang",
+          "item-fu-qixie"
+        ],
+        "qty": 1
+      }
+    ]
+  },
+  {
+    "id": "rq-hs-lost-bag",
+    "name": "遗落的行囊",
+    "map": "map-houshan",
+    "trigger": {
+      "once": false,
+      "chance": 0.3,
+      "cooldown": 60
+    },
+    "conditions": [],
+    "effects": [
+      {
+        "type": "stone",
+        "value": 15
+      }
+    ]
+  },
+  {
+    "id": "rq-hs-old-campfire",
+    "name": "残破营地",
+    "map": "map-houshan",
+    "trigger": {
+      "once": false,
+      "chance": 0.25,
+      "cooldown": 60
+    },
+    "conditions": [],
+    "effects": [
+      {
+        "type": "mp",
+        "value": 20
+      },
+      {
+        "type": "exp",
+        "value": 8
+      }
+    ]
+  },
+  {
+    "id": "rq-qy-well-wish",
+    "name": "古井许愿",
+    "map": "map-qingyun",
+    "trigger": {
+      "once": false,
+      "chance": 0.2,
+      "cooldown": 120
+    },
+    "conditions": [],
+    "effects": [
+      {
+        "type": "mind",
+        "value": 3
+      }
+    ]
+  },
+  {
+    "id": "rq-qy-street-cat",
+    "name": "镇口的狸猫",
+    "map": "map-qingyun",
+    "trigger": {
+      "once": false,
+      "chance": 0.25,
+      "cooldown": 90
+    },
+    "conditions": [],
+    "effects": [
+      {
+        "type": "favor",
+        "npc": "npc-wang-sao",
+        "value": 2
+      },
+      {
+        "type": "exp",
+        "value": 5
+      }
+    ]
   }
 ]

@@ -7,11 +7,30 @@
     "state": "available",
     "giver": "npc-xuan-yang",
     "summary": "玄阳子托你从镇东僵尸身上取回三份尸香，换取火球术残页。",
-    "objective": { "type": "collect", "item": "item-mat-shixiong", "qty": 3 },
-    "flags": ["flag-mq1-01-done"],
-    "prereq": { "quests": [] },
-    "reward": { "exp": 60, "stones": 40, "items": [{ "item": "item-book-huoqiu", "qty": 1 }] },
-    "nextQuests": ["mq-1-02"]
+    "objective": {
+      "type": "collect",
+      "item": "item-mat-shixiong",
+      "qty": 3
+    },
+    "flags": [
+      "flag-mq1-01-done"
+    ],
+    "prereq": {
+      "quests": []
+    },
+    "reward": {
+      "exp": 60,
+      "stones": 40,
+      "items": [
+        {
+          "item": "item-book-huoqiu",
+          "qty": 1
+        }
+      ]
+    },
+    "nextQuests": [
+      "mq-1-02"
+    ]
   },
   {
     "id": "mq-1-02",
@@ -21,10 +40,21 @@
     "state": "locked",
     "giver": "npc-xuan-yang",
     "summary": "（后续章节内容）火球术既成，玄阳子指点你往青云镇深处寻访筑基之路。",
-    "objective": { "type": "reach", "target": "realm-1" },
+    "objective": {
+      "type": "reach",
+      "target": "realm-1"
+    },
     "flags": [],
-    "prereq": { "quests": ["mq-1-01"] },
-    "reward": { "exp": 120, "stones": 60, "items": [] },
+    "prereq": {
+      "quests": [
+        "mq-1-01"
+      ]
+    },
+    "reward": {
+      "exp": 120,
+      "stones": 60,
+      "items": []
+    },
     "nextQuests": []
   },
   {
@@ -35,10 +65,189 @@
     "state": "available",
     "giver": "npc-wang-sao",
     "summary": "替悦来客栈的王嫂收集五张狼皮，她出四十块灵石。",
-    "objective": { "type": "collect", "item": "item-mat-langpi", "qty": 5 },
+    "objective": {
+      "type": "collect",
+      "item": "item-mat-langpi",
+      "qty": 5
+    },
     "flags": [],
-    "prereq": { "quests": [] },
-    "reward": { "exp": 30, "stones": 40, "items": [] },
+    "prereq": {
+      "quests": []
+    },
+    "reward": {
+      "exp": 30,
+      "stones": 40,
+      "items": []
+    },
+    "nextQuests": []
+  },
+  {
+    "id": "mq-1-03",
+    "name": "后山狼患",
+    "type": "mq",
+    "level": 1,
+    "state": "locked",
+    "giver": "npc-wang-sao",
+    "summary": "后山山狼成患，替王嫂与镇民除患：收集八张狼皮。",
+    "objective": {
+      "type": "collect",
+      "item": "item-mat-langpi",
+      "qty": 8
+    },
+    "flags": [
+      "flag-mq1-03-done"
+    ],
+    "prereq": {
+      "quests": [
+        "mq-1-01"
+      ]
+    },
+    "reward": {
+      "exp": 120,
+      "stones": 80,
+      "items": [
+        {
+          "item": "item-fabao-hufu-pao",
+          "qty": 1
+        }
+      ]
+    },
+    "nextQuests": [
+      "mq-1-04"
+    ]
+  },
+  {
+    "id": "mq-1-04",
+    "name": "乱葬岗之夜",
+    "type": "mq",
+    "level": 2,
+    "state": "locked",
+    "giver": "npc-xuan-yang",
+    "summary": "乱葬岗怨气冲天。取回五枚魂石，玄阳子要布阵镇怨。",
+    "objective": {
+      "type": "collect",
+      "item": "item-mat-hunshi",
+      "qty": 5
+    },
+    "flags": [
+      "flag-mq1-04-done"
+    ],
+    "prereq": {
+      "quests": [
+        "mq-1-03"
+      ]
+    },
+    "reward": {
+      "exp": 200,
+      "stones": 100,
+      "items": []
+    },
+    "nextQuests": []
+  },
+  {
+    "id": "sq-hs-01",
+    "name": "黑风寨的税",
+    "type": "sq",
+    "level": 2,
+    "state": "available",
+    "giver": "npc-wang-sao",
+    "summary": "黑风寨喽啰劫了客栈的货。夺回六块铁矿。",
+    "objective": {
+      "type": "collect",
+      "item": "item-mat-tiekuang",
+      "qty": 6
+    },
+    "flags": [],
+    "prereq": {
+      "quests": []
+    },
+    "reward": {
+      "exp": 90,
+      "stones": 70,
+      "items": []
+    },
+    "nextQuests": []
+  },
+  {
+    "id": "sq-lz-01",
+    "name": "亡者安息",
+    "type": "sq",
+    "level": 2,
+    "state": "available",
+    "giver": "npc-xuan-yang",
+    "summary": "超度乱葬岗的怨尸，收集三份尸香制成安魂香。",
+    "objective": {
+      "type": "collect",
+      "item": "item-mat-shixiong",
+      "qty": 3
+    },
+    "flags": [],
+    "prereq": {
+      "quests": []
+    },
+    "reward": {
+      "exp": 100,
+      "stones": 50,
+      "items": [
+        {
+          "item": "item-dan-ning-shen",
+          "qty": 1
+        }
+      ]
+    },
+    "nextQuests": []
+  },
+  {
+    "id": "sq-hs-02",
+    "name": "采药人的旧路",
+    "type": "sq",
+    "level": 1,
+    "state": "available",
+    "giver": "npc-wang-sao",
+    "summary": "后山崖边长着灵草，替王嫂采一份灵净水回来。",
+    "objective": {
+      "type": "collect",
+      "item": "item-mat-lingjing-shui",
+      "qty": 1
+    },
+    "flags": [],
+    "prereq": {
+      "quests": []
+    },
+    "reward": {
+      "exp": 60,
+      "stones": 30,
+      "items": [
+        {
+          "item": "item-dan-huiqi",
+          "qty": 2
+        }
+      ]
+    },
+    "nextQuests": []
+  },
+  {
+    "id": "sq-qy-02",
+    "name": "客栈的冬衣",
+    "type": "sq",
+    "level": 1,
+    "state": "available",
+    "giver": "npc-wang-sao",
+    "summary": "再替王嫂收五张狼皮，镇上孩子冬天快到了。",
+    "objective": {
+      "type": "collect",
+      "item": "item-mat-langpi",
+      "qty": 5
+    },
+    "flags": [],
+    "prereq": {
+      "quests": []
+    },
+    "reward": {
+      "exp": 40,
+      "stones": 40,
+      "items": []
+    },
     "nextQuests": []
   }
 ]

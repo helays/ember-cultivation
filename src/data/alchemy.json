@@ -1,0 +1,17 @@
+[
+  {
+    "id": "alch-huiqi", "name": "炼制回气丹", "inputs": [{ "item": "item-mat-lingcao-seed", "qty": 2 }],
+    "output": { "item": "item-dan-huiqi", "qty": 2 }, "timeCost": 2, "reqFacility": 1,
+    "desc": "以灵草为引，文火两时辰。"
+  },
+  {
+    "id": "alch-liaoshang", "name": "炼制疗伤丹", "inputs": [{ "item": "item-mat-hupi", "qty": 1 }, { "item": "item-mat-lingcao-seed", "qty": 1 }],
+    "output": { "item": "item-dan-liaoshang", "qty": 1 }, "timeCost": 3, "reqFacility": 1,
+    "desc": "狐裘入药，奇效。"
+  },
+  {
+    "id": "alch-zhuji", "name": "炼制筑基丹", "inputs": [{ "item": "item-mat-hunshi", "qty": 3 }, { "item": "item-mat-hupi", "qty": 2 }],
+    "output": { "item": "item-dan-zhuji", "qty": 1 }, "timeCost": 6, "reqFacility": 2,
+    "desc": "筑基机缘之物，非洞府丹房二阶不可炼。"
+  }
+]

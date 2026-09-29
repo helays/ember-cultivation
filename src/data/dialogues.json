@@ -126,5 +126,385 @@
         "next": null
       }
     ]
+  },
+  {
+    "id": "dlg-wangsao-turnin-2",
+    "npc": "npc-wang-sao",
+    "text": "狼皮、铁矿、灵净水……这一路辛苦你了，账都算清楚。",
+    "conditions": [
+      {
+        "type": "hasItem",
+        "item": "item-mat-langpi",
+        "qty": 8
+      },
+      {
+        "type": "questState",
+        "quest": "mq-1-03",
+        "state": "active"
+      }
+    ],
+    "choices": [
+      {
+        "text": "（交付后山狼患的八张狼皮）",
+        "next": null,
+        "effects": [
+          {
+            "type": "consume",
+            "item": "item-mat-langpi",
+            "qty": 8
+          },
+          {
+            "type": "item",
+            "item": "item-fabao-hufu-pao",
+            "qty": 1
+          },
+          {
+            "type": "exp",
+            "value": 120
+          },
+          {
+            "type": "stone",
+            "value": 80
+          },
+          {
+            "type": "quest",
+            "quest": "mq-1-03",
+            "state": "completed"
+          },
+          {
+            "type": "quest",
+            "quest": "mq-1-04",
+            "state": "active"
+          },
+          {
+            "type": "flag",
+            "key": "flag-mq1-03-done",
+            "value": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dlg-wangsao-turnin-hs",
+    "npc": "npc-wang-sao",
+    "text": "劫货的黑风寨喽啰也被你收拾了？嫂子这心里踏实了。",
+    "conditions": [
+      {
+        "type": "hasItem",
+        "item": "item-mat-tiekuang",
+        "qty": 6
+      },
+      {
+        "type": "questState",
+        "quest": "sq-hs-01",
+        "state": "active"
+      }
+    ],
+    "choices": [
+      {
+        "text": "（交付六块铁矿）",
+        "next": null,
+        "effects": [
+          {
+            "type": "consume",
+            "item": "item-mat-tiekuang",
+            "qty": 6
+          },
+          {
+            "type": "exp",
+            "value": 90
+          },
+          {
+            "type": "stone",
+            "value": 70
+          },
+          {
+            "type": "quest",
+            "quest": "sq-hs-01",
+            "state": "completed"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dlg-wangsao-turnin-herb",
+    "npc": "npc-wang-sao",
+    "text": "灵净水！崖边那条路还在就好。孩子们的眼疾有救了。",
+    "conditions": [
+      {
+        "type": "hasItem",
+        "item": "item-mat-lingjing-shui",
+        "qty": 1
+      },
+      {
+        "type": "questState",
+        "quest": "sq-hs-02",
+        "state": "active"
+      }
+    ],
+    "choices": [
+      {
+        "text": "（交付灵净水）",
+        "next": null,
+        "effects": [
+          {
+            "type": "consume",
+            "item": "item-mat-lingjing-shui",
+            "qty": 1
+          },
+          {
+            "type": "item",
+            "item": "item-dan-huiqi",
+            "qty": 2
+          },
+          {
+            "type": "exp",
+            "value": 60
+          },
+          {
+            "type": "stone",
+            "value": 30
+          },
+          {
+            "type": "quest",
+            "quest": "sq-hs-02",
+            "state": "completed"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dlg-xuanyang-turnin-lz",
+    "npc": "npc-xuan-yang",
+    "text": "五枚魂石……怨气镇得住一季了。你也该往筑基路上走了。",
+    "conditions": [
+      {
+        "type": "hasItem",
+        "item": "item-mat-hunshi",
+        "qty": 5
+      },
+      {
+        "type": "questState",
+        "quest": "mq-1-04",
+        "state": "active"
+      }
+    ],
+    "choices": [
+      {
+        "text": "（交付五枚魂石）",
+        "next": null,
+        "effects": [
+          {
+            "type": "consume",
+            "item": "item-mat-hunshi",
+            "qty": 5
+          },
+          {
+            "type": "exp",
+            "value": 200
+          },
+          {
+            "type": "stone",
+            "value": 100
+          },
+          {
+            "type": "quest",
+            "quest": "mq-1-04",
+            "state": "completed"
+          },
+          {
+            "type": "flag",
+            "key": "flag-mq1-04-done",
+            "value": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dlg-xuanyang-turnin-anhun",
+    "npc": "npc-xuan-yang",
+    "text": "安魂香成了。亡者得安，你的道心又稳了一分。",
+    "conditions": [
+      {
+        "type": "hasItem",
+        "item": "item-mat-shixiong",
+        "qty": 3
+      },
+      {
+        "type": "questState",
+        "quest": "sq-lz-01",
+        "state": "active"
+      }
+    ],
+    "choices": [
+      {
+        "text": "（交付三份尸香）",
+        "next": null,
+        "effects": [
+          {
+            "type": "consume",
+            "item": "item-mat-shixiong",
+            "qty": 3
+          },
+          {
+            "type": "item",
+            "item": "item-dan-ning-shen",
+            "qty": 1
+          },
+          {
+            "type": "exp",
+            "value": 100
+          },
+          {
+            "type": "stone",
+            "value": 50
+          },
+          {
+            "type": "quest",
+            "quest": "sq-lz-01",
+            "state": "completed"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dlg-wangsao-offers",
+    "npc": "npc-wang-sao",
+    "text": "小道爷若是得闲，嫂子这里有几桩跑腿的活计。",
+    "choices": [
+      {
+        "text": "（接下：黑风寨的税）",
+        "next": null,
+        "conditions": [
+          {
+            "type": "questState",
+            "quest": "sq-hs-01",
+            "state": "available"
+          }
+        ],
+        "effects": [
+          {
+            "type": "quest",
+            "quest": "sq-hs-01",
+            "state": "active"
+          }
+        ]
+      },
+      {
+        "text": "（接下：采药人的旧路）",
+        "next": null,
+        "conditions": [
+          {
+            "type": "questState",
+            "quest": "sq-hs-02",
+            "state": "available"
+          }
+        ],
+        "effects": [
+          {
+            "type": "quest",
+            "quest": "sq-hs-02",
+            "state": "active"
+          }
+        ]
+      },
+      {
+        "text": "（接下：客栈的冬衣）",
+        "next": null,
+        "conditions": [
+          {
+            "type": "questState",
+            "quest": "sq-qy-02",
+            "state": "available"
+          }
+        ],
+        "effects": [
+          {
+            "type": "quest",
+            "quest": "sq-qy-02",
+            "state": "active"
+          }
+        ]
+      },
+      {
+        "text": "改日再来。",
+        "next": null
+      }
+    ]
+  },
+  {
+    "id": "dlg-xuanyang-offers",
+    "npc": "npc-xuan-yang",
+    "text": "你既有心向道，眼下也有几桩事，正缺个跑腿的修行人。",
+    "choices": [
+      {
+        "text": "（接下：亡者安息）",
+        "next": null,
+        "conditions": [
+          {
+            "type": "questState",
+            "quest": "sq-lz-01",
+            "state": "available"
+          }
+        ],
+        "effects": [
+          {
+            "type": "quest",
+            "quest": "sq-lz-01",
+            "state": "active"
+          }
+        ]
+      },
+      {
+        "text": "改日再来。",
+        "next": null
+      }
+    ]
+  },
+  {
+    "id": "dlg-xuanyang-ending",
+    "npc": "npc-xuan-yang",
+    "text": "化神圆满……你的道，已经走到这个纪元的尽头了。往后的路，老道看不见，但归墟的方向，你自己认得。",
+    "conditions": [
+      {
+        "type": "realm",
+        "min": 5
+      },
+      {
+        "type": "stage",
+        "min": 4
+      }
+    ],
+    "choices": [
+      {
+        "text": "（补天——重锁周天大阵）",
+        "next": null,
+        "effects": [
+          {
+            "type": "ending",
+            "ending": "end-restore"
+          }
+        ]
+      },
+      {
+        "text": "（归隐——回青云镇做个说书人）",
+        "next": null,
+        "effects": [
+          {
+            "type": "ending",
+            "ending": "end-retire"
+          }
+        ]
+      },
+      {
+        "text": "（再走走看）",
+        "next": null
+      }
+    ]
   }
 ]

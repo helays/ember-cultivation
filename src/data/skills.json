@@ -10,8 +10,15 @@
     "type": "damage",
     "tier": 1,
     "maxLevel": 5,
-    "upgradeCost": [1, 2, 4, 8],
-    "req": { "realm": 0 },
+    "upgradeCost": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "req": {
+      "realm": 0
+    },
     "desc": "凝聚灵力掷出火球。末法时代最基础的火系术法。"
   },
   {
@@ -19,7 +26,7 @@
     "name": "兽爪撕咬",
     "element": "none",
     "target": "single",
-    "power": 1.0,
+    "power": 1,
     "mpCost": 0,
     "cooldown": 0,
     "type": "damage",
@@ -58,5 +65,83 @@
     "upgradeCost": [],
     "req": {},
     "desc": "怨魂聚拢还于己身，恢复少量生命。"
+  },
+  {
+    "id": "skill-lianhuan-sanjian",
+    "name": "连环三剑",
+    "element": "metal",
+    "target": "single",
+    "power": 1.6,
+    "mpCost": 10,
+    "cooldown": 2,
+    "type": "damage",
+    "tier": 1,
+    "maxLevel": 5,
+    "upgradeCost": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "req": {},
+    "desc": "凡兵三连，剑剑相连。"
+  },
+  {
+    "id": "skill-han-bing-zhen",
+    "name": "寒冰针",
+    "element": "water",
+    "target": "all-enemy",
+    "power": 0.9,
+    "mpCost": 18,
+    "cooldown": 2,
+    "type": "aoe",
+    "tier": 1,
+    "maxLevel": 5,
+    "upgradeCost": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "req": {},
+    "desc": "以水汽凝针，散射敌群。"
+  },
+  {
+    "id": "skill-mu-chang-chun",
+    "name": "木长春",
+    "element": "wood",
+    "target": "self",
+    "power": 0.8,
+    "mpCost": 14,
+    "cooldown": 3,
+    "type": "heal",
+    "tier": 1,
+    "maxLevel": 5,
+    "upgradeCost": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "req": {},
+    "desc": "木灵生机，愈合金身。"
+  },
+  {
+    "id": "skill-tu-dun-shu",
+    "name": "土遁术",
+    "element": "earth",
+    "target": "self",
+    "power": 0,
+    "mpCost": 8,
+    "cooldown": 4,
+    "type": "buff",
+    "tier": 1,
+    "maxLevel": 3,
+    "upgradeCost": [
+      2,
+      4
+    ],
+    "req": {},
+    "desc": "土行护体，本回合御敌。"
   }
 ]

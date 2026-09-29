@@ -5,6 +5,8 @@ import { useUiStore } from '../stores/uiStore.js'
 import { usePlayerStore, expThreshold } from '../stores/playerStore.js'
 import { useInventoryStore } from '../stores/inventoryStore.js'
 import { getSkill, getGongfa } from '@/core/registry.js'
+import { useWorldStore } from '../stores/worldStore.js'
+import homesteadCfg from '@/data/homestead.json'
 
 // Cultivation panel (doc/02 §4): meditation, breakthrough, skill upgrades.
 // Meditation/breakthrough outcomes that need the world (time advance, 心魔
@@ -12,6 +14,14 @@ import { getSkill, getGongfa } from '@/core/registry.js'
 const ui = useUiStore()
 const player = usePlayerStore()
 const inv = useInventoryStore()
+const world = useWorldStore()
+
+function spiritDensityOf() {
+  if (world.location !== 'map-dongfu') return 1.0
+  const byLevel = homesteadCfg.spiritDensityByLevel ?? [1.0]
+  const level = player.homestead?.level ?? 1
+  return byLevel[Math.min(level - 1, byLevel.length - 1)] ?? 1.4
+}
 
 const skills = computed(() =>
   (player.skills ?? []).map((s) => ({ ...s, def: getSkill(s.id) })).filter((s) => s.def),
@@ -25,7 +35,7 @@ function close() {
 }
 
 function meditate() {
-  const result = player.meditate({ spiritDensity: 1.0 })
+  const result = player.meditate({ spiritDensity: spiritDensityOf() })
   bus.emit(EVT.SCENE_TRANSITION, { from: 'meditate', to: `meditate:${result.event}`, fade: false })
   if (result.event === 'insight') {
     ui.pushToast({ text: `顿悟！修为 +${result.gain}。`, level: 'info' })

@@ -1,0 +1,12 @@
+[
+  {
+    "id": "farm-ling-cao", "name": "灵草", "seed": "item-mat-lingcao-seed",
+    "product": "item-mat-lingjing-shui", "growHours": 24,
+    "seasons": ["spring", "summer", "autumn"], "desc": "一年三季可种，凝灵净水。"
+  },
+  {
+    "id": "farm-hui-xin-hua", "name": "慧心花", "seed": "item-mat-huixin-seed",
+    "product": "item-dan-ning-shen", "growHours": 48,
+    "seasons": ["spring"], "desc": "早春播种，两日一花。"
+  }
+]

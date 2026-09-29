@@ -9,6 +9,8 @@ import Inventory from './components/Inventory.vue'
 import SkillPanel from './components/SkillPanel.vue'
 import QuestLog from './components/QuestLog.vue'
 import Codex from './components/Codex.vue'
+import Homestead from './components/Homestead.vue'
+import TouchControls from './components/TouchControls.vue'
 import DialogBox from './components/DialogBox.vue'
 import { initEventBridge } from './eventBridge.js'
 
@@ -30,6 +32,7 @@ const MENU_KEYS = {
   KeyK: 'skills',
   KeyJ: 'quests',
   KeyL: 'codex',
+  KeyH: 'homestead',
   Escape: 'save',
 }
 
@@ -65,8 +68,10 @@ onUnmounted(() => {
     <SkillPanel v-if="ui.openMenu === 'skills'" />
     <QuestLog v-if="ui.openMenu === 'quests'" />
     <Codex v-if="ui.openMenu === 'codex'" />
+    <Homestead v-if="ui.openMenu === 'homestead'" />
     <BattleCommand />
     <DialogBox />
+    <TouchControls />
     <div class="toasts">
       <div v-for="t in ui.toasts" :key="t.id" class="toast" :class="t.level">{{ t.text }}</div>
     </div>

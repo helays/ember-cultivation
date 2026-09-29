@@ -7,7 +7,7 @@
 export const ID_PREFIXES = [
   'mq-', 'sq-', 'fq-', 'dq-', 'rq-', 'eq-', 'evt-', 'npc-', 'enemy-', 'boss-',
   'item-', 'skill-', 'gongfa-', 'tal-', 'alch-', 'craft-', 'map-', 'fac-',
-  'flag-', 'end-', 'cdx-', 'shop-', 'bgm-', 'sfx-', 'enc-', 'dlg-', 'affix-', 'spawn-', 'combo-',
+  'flag-', 'end-', 'cdx-', 'shop-', 'bgm-', 'sfx-', 'enc-', 'dlg-', 'affix-', 'spawn-', 'combo-', 'farm-', 'alch-', 'craft-', 'tal-', 'end-', 'npc-',
 ]
 
 export const EFFECT_TYPES = [
@@ -35,7 +35,7 @@ export const ENEMY_BASELINES = {
 
 function resolves(TABLES, id) {
   if (typeof id !== 'string') return false
-  return Object.values(TABLES).some((list) => (list ?? []).some((e) => e.id === id))
+  return Object.values(TABLES).some((list) => Array.isArray(list) && list.some((e) => e.id === id))
 }
 
 /** Duplicate-key detection: JSON.parse silently keeps the last one. */
@@ -136,7 +136,8 @@ export function validateTables(TABLES) {
   const flagsRead = new Set()
 
   for (const [name, tableList] of Object.entries(TABLES)) {
-    for (const entry of tableList ?? []) {
+    if (!Array.isArray(tableList)) continue // config objects (homestead) are not entry tables
+    for (const entry of tableList) {
       // 1) id rules and global uniqueness
       checkId(entry, name, errors)
       if (entry.id) {
@@ -229,8 +230,9 @@ export function validateTables(TABLES) {
   // 8) orphan quests
   const referenced = new Set()
   for (const q of quests) for (const pre of q.prereq?.quests ?? []) referenced.add(pre)
-  const orphans = quests.filter((q) => !(q.prereq?.quests?.length) && !referenced.has(q.id))
-  if (orphans.length > 1) warnings.push(`orphan quests: ${orphans.map((q) => q.id).join(', ')}`)
+  // Orphan check applies to MAIN quests only — side quests stand alone by design.
+  const orphans = quests.filter((q) => q.id?.startsWith('mq-') && !(q.prereq?.quests?.length) && !referenced.has(q.id))
+  if (orphans.length > 1) warnings.push(`orphan main quests: ${orphans.map((q) => q.id).join(', ')}`)
 
   return {
     ok: errors.length === 0,

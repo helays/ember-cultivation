@@ -45,7 +45,8 @@ export const useSaveStore = defineStore('save', {
         companions: JSON.parse(JSON.stringify(player.companions)),
         lover: player.lover,
         newGamePlus: player.newGamePlus,
-        ngPlusInherit: base.ngPlusInherit,
+        ngPlusInherit: JSON.parse(JSON.stringify(player.ngPlusInherit ?? base.ngPlusInherit)),
+        homestead: JSON.parse(JSON.stringify(player.homestead ?? base.homestead)),
         rngSeed: player.rngSeed,
         daoPoints: player.daoPoints,
       }
@@ -70,6 +71,8 @@ export const useSaveStore = defineStore('save', {
       player.newGamePlus = payload.newGamePlus ?? 0
       player.rngSeed = payload.rngSeed ?? 20240517
       player.daoPoints = payload.daoPoints ?? 0
+      player.homestead = JSON.parse(JSON.stringify(payload.homestead ?? base.homestead))
+      player.ngPlusInherit = JSON.parse(JSON.stringify(payload.ngPlusInherit ?? base.ngPlusInherit))
       player.stones = payload.player.stones ?? 50
     },
     /** Read + validate + load a slot in one step. */

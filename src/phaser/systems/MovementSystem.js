@@ -39,6 +39,24 @@ export class MovementSystem {
 
     let vx = 0
     let vy = 0
+    // Touch joystick vector (TouchControls.vue via game registry).
+    const touch = this.scene.game.registry.get('touchVec')
+    if (touch && (touch.x !== 0 || touch.y !== 0)) {
+      const len = Math.hypot(touch.x, touch.y) || 1
+      let speed = this.keys.SHIFT.isDown ? RUN_SPEED : PLAYER_SPEED
+      const body = player.body.center
+      if (this.inWater(body.x, body.y)) speed *= WATER_SPEED_MUL
+      vx = (touch.x / len) * speed
+      vy = (touch.y / len) * speed
+      player.setVelocity(vx, vy)
+      this.player.setFacing(Math.abs(vx) >= Math.abs(vy) ? (vx > 0 ? 'right' : 'left') : vy > 0 ? 'down' : 'up')
+      player.playWalk()
+      this.scene.timeSystem.addDistance(Math.hypot(vx, vy) * dt)
+      const eDown = this.keys.E.isDown
+      if (eDown && !this.eWasDown) this.scene.tryInteract?.()
+      this.eWasDown = eDown
+      return
+    }
     if (this.cursors.left.isDown || this.keys.A.isDown) vx -= 1
     if (this.cursors.right.isDown || this.keys.D.isDown) vx += 1
     if (this.cursors.up.isDown || this.keys.W.isDown) vy -= 1

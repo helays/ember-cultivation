@@ -1,10 +1,12 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { bus, EVT } from '@/core/bus.js'
-import { readSlot, defaultPayload } from '@/core/saveManager.js'
+import { readSlot, defaultPayload, isMemoryMode } from '@/core/saveManager.js'
 import { useUiStore } from '../stores/uiStore.js'
 import { useSaveStore } from '../stores/saveStore.js'
 import { useWorldStore } from '../stores/worldStore.js'
+import { usePlayerStore } from '../stores/playerStore.js'
+import { getEnding } from '@/core/registry.js'
 
 const ui = useUiStore()
 const save = useSaveStore()
@@ -14,6 +16,8 @@ const view = ref('root') // root | load
 const lastSlot = ref(localStorage.getItem('ec:last-slot:v1') ?? 'slot-1')
 const lastSlotExists = ref(false)
 const busy = ref(false)
+const storageWarn = ref(false)
+onMounted(() => { storageWarn.value = isMemoryMode() })
 
 onMounted(async () => {
   await save.refreshSlots()
@@ -47,7 +51,43 @@ function startNew() {
 }
 
 function openSettings() {
-  ui.pushToast({ text: '设置将在后续里程碑开放。', level: 'info' })
+  ui.pushToast({ text: '像素字体：Fusion Pixel（TakWolf，OFL 1.1）· 音画素材均为项目自有（见 doc/14 附录 A）', level: 'info' })
+}
+
+/** NG+ availability: a finished save with any unlocked ending (doc/12 §8). */
+function ngPlusSource() {
+  return save.slots.find((s) => s.exists && s.slot !== 'slot-auto' && s.hasEnding) ?? null
+}
+
+async function startNgPlus() {
+  const source = ngPlusSource()
+  if (!source) return
+  busy.value = true
+  try {
+    const result = await readSlot(source.slot)
+    if (!result) return
+    const payload = result.payload
+    save.applyPayload(payload)
+    const player = usePlayerStore()
+    // Fresh run, older world (doc/12 §8.2/§8.3): keep codex endings, quarter
+    // the relationships, apply up to 3 ending inherit bonuses.
+    const keptEndings = [...player.codex.endings]
+    const inherit = {}
+    let applied = 0
+    for (const id of keptEndings) {
+      const bonus = getEnding(id)?.inherit
+      if (!bonus || applied >= 3) continue
+      applied += 1
+      for (const [k, v] of Object.entries(bonus)) inherit[k] = (inherit[k] ?? 1) + v
+    }
+    player.applyNgPlus(keptEndings, inherit)
+    ui.pushToast({ text: `二周目：继承结局回响 ${applied} 条。`, level: 'info' })
+    enterWorld('new', null)
+  } catch {
+    ui.pushToast({ text: '读取上一周目的卡带失败了。', level: 'error' })
+  } finally {
+    busy.value = false
+  }
 }
 
 function fmtPlayTime(seconds) {
@@ -60,6 +100,7 @@ function fmtPlayTime(seconds) {
 <template>
   <div class="menu-wrap">
     <div class="menu-panel">
+      <p v-if="storageWarn" class="storage-warn">当前浏览器禁用了本地存储，进度退出即丢失，请随时导出。</p>
       <h1 class="title">末法仙途</h1>
       <p class="subtitle">灵气枯竭之年，道在何方。</p>
 
@@ -69,6 +110,9 @@ function fmtPlayTime(seconds) {
             继续道途<span v-if="lastSlotExists" class="hint">卡带 {{ lastSlot.slice(-1) }}</span>
           </button>
           <button :disabled="busy" @click="startNew">新的道途</button>
+          <button v-if="ngPlusSource()" :disabled="busy" @click="startNgPlus">
+            再入轮回（二周目）
+          </button>
           <button :disabled="busy" @click="view = 'load'">读档</button>
           <button @click="openSettings">设置</button>
         </div>
@@ -116,6 +160,14 @@ function fmtPlayTime(seconds) {
   border-image: url('@/assets/ui/frames/ui-frame-panel-9slice.png') 16 fill;
   image-rendering: pixelated;
   color: #e8e6dc;
+}
+.storage-warn {
+  margin: 0 0 10px;
+  font-size: 12px;
+  color: #d97b7b;
+  border: 1px solid #8f2b2b;
+  padding: 6px 10px;
+  text-align: center;
 }
 .title {
   margin: 0 0 4px;

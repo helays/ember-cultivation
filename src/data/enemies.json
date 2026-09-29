@@ -182,5 +182,309 @@
       0,
       0
     ]
+  },
+  {
+    "id": "enemy-shan-xiao",
+    "name": "山魈",
+    "kind": "yao",
+    "level": "common",
+    "stats": {
+      "hp": 55,
+      "mp": 0,
+      "atk": 11,
+      "def": 6,
+      "spd": 10
+    },
+    "ai": "attacker",
+    "affixPool": [],
+    "weakness": [
+      "fire"
+    ],
+    "resist": [],
+    "skills": [
+      "skill-claw"
+    ],
+    "drops": [
+      {
+        "item": "item-mat-shougu",
+        "chance": 0.35,
+        "qty": [
+          1,
+          1
+        ]
+      }
+    ],
+    "codex": "yaoguai",
+    "expReward": 38,
+    "stoneReward": [
+      6,
+      12
+    ]
+  },
+  {
+    "id": "enemy-yao-hu",
+    "name": "赤尾妖狐",
+    "kind": "yao",
+    "level": "elite",
+    "stats": {
+      "hp": 70,
+      "mp": 20,
+      "atk": 13,
+      "def": 7,
+      "spd": 13
+    },
+    "ai": "random",
+    "affixPool": [],
+    "weakness": [
+      "metal"
+    ],
+    "resist": [
+      "fire"
+    ],
+    "skills": [
+      "skill-yin-feng",
+      "skill-claw"
+    ],
+    "drops": [
+      {
+        "item": "item-mat-hupi",
+        "chance": 0.4,
+        "qty": [
+          1,
+          1
+        ]
+      },
+      {
+        "item": "item-fu-qixie",
+        "chance": 0.1,
+        "qty": [
+          1,
+          1
+        ]
+      }
+    ],
+    "codex": "yaoguai",
+    "expReward": 55,
+    "stoneReward": [
+      12,
+      20
+    ]
+  },
+  {
+    "id": "enemy-yuan-shi",
+    "name": "怨尸",
+    "kind": "zombie",
+    "level": "common",
+    "stats": {
+      "hp": 70,
+      "mp": 0,
+      "atk": 13,
+      "def": 9,
+      "spd": 5
+    },
+    "ai": "attacker",
+    "affixPool": [],
+    "weakness": [
+      "fire",
+      "wood"
+    ],
+    "resist": [
+      "water"
+    ],
+    "skills": [
+      "skill-claw"
+    ],
+    "drops": [
+      {
+        "item": "item-mat-shixiong",
+        "chance": 0.5,
+        "qty": [
+          1,
+          2
+        ]
+      }
+    ],
+    "codex": "yaoguai",
+    "expReward": 44,
+    "stoneReward": [
+      8,
+      14
+    ]
+  },
+  {
+    "id": "enemy-shui-gui",
+    "name": "水鬼",
+    "kind": "ghost",
+    "level": "common",
+    "stats": {
+      "hp": 50,
+      "mp": 30,
+      "atk": 12,
+      "def": 6,
+      "spd": 9
+    },
+    "ai": "support",
+    "affixPool": [],
+    "weakness": [
+      "fire",
+      "earth"
+    ],
+    "resist": [
+      "water"
+    ],
+    "skills": [
+      "skill-yin-feng",
+      "skill-ju-hun"
+    ],
+    "drops": [
+      {
+        "item": "item-mat-hunshi",
+        "chance": 0.45,
+        "qty": [
+          1,
+          1
+        ]
+      }
+    ],
+    "codex": "yaoguai",
+    "expReward": 42,
+    "stoneReward": [
+      7,
+      13
+    ]
+  },
+  {
+    "id": "enemy-zei-kou",
+    "name": "黑风寨喽啰",
+    "kind": "human",
+    "level": "common",
+    "stats": {
+      "hp": 60,
+      "mp": 0,
+      "atk": 12,
+      "def": 8,
+      "spd": 11
+    },
+    "ai": "random",
+    "affixPool": [],
+    "weakness": [],
+    "resist": [],
+    "skills": [
+      "skill-claw"
+    ],
+    "drops": [
+      {
+        "item": "item-mat-tiekuang",
+        "chance": 0.4,
+        "qty": [
+          1,
+          2
+        ]
+      },
+      {
+        "item": "item-dan-huiqi",
+        "chance": 0.15,
+        "qty": [
+          1,
+          1
+        ]
+      }
+    ],
+    "codex": "yaoguai",
+    "expReward": 40,
+    "stoneReward": [
+      10,
+      16
+    ]
+  },
+  {
+    "id": "enemy-zei-toumu",
+    "name": "黑风寨头目",
+    "kind": "human",
+    "level": "elite",
+    "stats": {
+      "hp": 110,
+      "mp": 0,
+      "atk": 16,
+      "def": 11,
+      "spd": 12
+    },
+    "ai": "attacker",
+    "affixPool": [
+      "affix-xiong-can",
+      "affix-tie-jia"
+    ],
+    "weakness": [],
+    "resist": [],
+    "skills": [
+      "skill-claw",
+      "skill-lianhuan-sanjian"
+    ],
+    "drops": [
+      {
+        "item": "item-fabao-xuanfeng-dao",
+        "chance": 0.25,
+        "qty": [
+          1,
+          1
+        ]
+      },
+      {
+        "item": "item-mat-tiekuang",
+        "chance": 0.6,
+        "qty": [
+          2,
+          4
+        ]
+      }
+    ],
+    "codex": "yaoguai",
+    "expReward": 90,
+    "stoneReward": [
+      30,
+      50
+    ]
+  },
+  {
+    "id": "enemy-huan-jing-ling",
+    "name": "幻境灵体",
+    "kind": "spirit",
+    "level": "elite",
+    "stats": {
+      "hp": 80,
+      "mp": 40,
+      "atk": 14,
+      "def": 10,
+      "spd": 14
+    },
+    "ai": "defender",
+    "affixPool": [],
+    "weakness": [
+      "wood"
+    ],
+    "resist": [
+      "water",
+      "fire"
+    ],
+    "skills": [
+      "skill-yin-feng",
+      "skill-ju-hun"
+    ],
+    "drops": [
+      {
+        "item": "item-mat-lingjing-shui",
+        "chance": 0.5,
+        "qty": [
+          1,
+          1
+        ]
+      }
+    ],
+    "codex": "yaoguai",
+    "expReward": 70,
+    "stoneReward": [
+      15,
+      25
+    ]
   }
 ]

@@ -7,7 +7,12 @@
     "desc": "下品丹药，服下恢复五十点生命。",
     "price": 20,
     "stackable": true,
-    "useEffects": [{ "type": "hp", "value": 50 }]
+    "useEffects": [
+      {
+        "type": "hp",
+        "value": 50
+      }
+    ]
   },
   {
     "id": "item-dan-zhuji",
@@ -78,7 +83,9 @@
     "price": 120,
     "stackable": false,
     "slot": "weapon",
-    "equipAttrs": { "attack": 4 }
+    "equipAttrs": {
+      "attack": 4
+    }
   },
   {
     "id": "item-fabao-yunjin-pao",
@@ -89,7 +96,9 @@
     "price": 100,
     "stackable": false,
     "slot": "armor",
-    "equipAttrs": { "defense": 3 }
+    "equipAttrs": {
+      "defense": 3
+    }
   },
   {
     "id": "item-book-huoqiu",
@@ -99,6 +108,150 @@
     "desc": "记载火球术的残页。研读后可入门此术。",
     "price": 50,
     "stackable": false,
-    "useEffects": [{ "type": "unlockSkill", "skill": "skill-huo-qiu" }]
+    "useEffects": [
+      {
+        "type": "unlockSkill",
+        "skill": "skill-huo-qiu"
+      }
+    ]
+  },
+  {
+    "id": "item-dan-liaoshang",
+    "name": "疗伤丹",
+    "category": "dan",
+    "level": 1,
+    "desc": "中品丹药，恢复一百二十点生命。",
+    "price": 45,
+    "stackable": true,
+    "useEffects": [
+      {
+        "type": "hp",
+        "value": 120
+      }
+    ]
+  },
+  {
+    "id": "item-dan-ning-shen",
+    "name": "凝神丹",
+    "category": "dan",
+    "level": 2,
+    "desc": "宁心静气，心境 +10。",
+    "price": 60,
+    "stackable": true,
+    "useEffects": [
+      {
+        "type": "mind",
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "item-dan-peiyuan",
+    "name": "培元丹",
+    "category": "dan",
+    "level": 2,
+    "desc": "打坐前服用，本次修为收益加倍。",
+    "price": 80,
+    "stackable": true,
+    "useEffects": []
+  },
+  {
+    "id": "item-fabao-xuanfeng-dao",
+    "name": "旋风刀",
+    "category": "fabao",
+    "level": 3,
+    "desc": "黑风寨头目的兵刃。装备：攻击 +7。",
+    "price": 260,
+    "stackable": false,
+    "slot": "weapon",
+    "equipAttrs": {
+      "attack": 7
+    }
+  },
+  {
+    "id": "item-fabao-biyu-huan",
+    "name": "碧玉环",
+    "category": "fabao",
+    "level": 3,
+    "desc": "温润生光。装备：防御 +5。",
+    "price": 240,
+    "stackable": false,
+    "slot": "accessory",
+    "equipAttrs": {
+      "defense": 5
+    }
+  },
+  {
+    "id": "item-fabao-hufu-pao",
+    "name": "护符袍",
+    "category": "fabao",
+    "level": 2,
+    "desc": "绣着辟邪纹的布袍。装备：防御 +4。",
+    "price": 160,
+    "stackable": false,
+    "slot": "armor",
+    "equipAttrs": {
+      "defense": 4
+    }
+  },
+  {
+    "id": "item-fu-jing-lei",
+    "name": "惊雷符",
+    "category": "fu",
+    "level": 2,
+    "desc": "掷出炸雷，不耗灵力。",
+    "price": 60,
+    "stackable": true,
+    "useEffects": []
+  },
+  {
+    "id": "item-mat-shougu",
+    "name": "山魈兽骨",
+    "category": "mat",
+    "level": 1,
+    "desc": "坚硬异常，炼器的好材料。",
+    "price": 9,
+    "stackable": true,
+    "useEffects": []
+  },
+  {
+    "id": "item-mat-hupi",
+    "name": "狐裘",
+    "category": "mat",
+    "level": 2,
+    "desc": "赤尾妖狐的裘皮，御寒辟火。",
+    "price": 18,
+    "stackable": true,
+    "useEffects": []
+  },
+  {
+    "id": "item-mat-lingjing-shui",
+    "name": "灵净水",
+    "category": "mat",
+    "level": 2,
+    "desc": "幻境凝出的净水，炼丹辅药。",
+    "price": 15,
+    "stackable": true,
+    "useEffects": []
+  },
+  {
+    "id": "item-mat-lingcao-seed",
+    "name": "灵草种",
+    "category": "mat",
+    "level": 1,
+    "desc": "灵草的种子，可种于灵田。",
+    "price": 5,
+    "stackable": true,
+    "useEffects": []
+  },
+  {
+    "id": "item-mat-huixin-seed",
+    "name": "慧心花种",
+    "category": "mat",
+    "level": 2,
+    "desc": "慧心花的种子，早春可种。",
+    "price": 12,
+    "stackable": true,
+    "useEffects": []
   }
 ]

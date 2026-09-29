@@ -123,7 +123,9 @@ function applyEffect(eff, ctx) {
       return { ...eff, summary: `道侣 ${eff.npc}` }
 
     case 'ending':
-      return { ...eff, summary: `结局 ${eff.ending}` }
+      if (!p.codex.endings.includes(eff.ending)) p.codex.endings.push(eff.ending)
+      ctx.worldFlags['flag-ending-reached'] = eff.ending
+      return { ...eff, summary: `抵达结局：${eff.ending}` }
 
     case 'randomItem': {
       const pool = (eff.pool ?? []).filter((id) => getItem(id))

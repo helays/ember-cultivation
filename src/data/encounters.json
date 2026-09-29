@@ -113,5 +113,43 @@
         "weight": 5
       }
     ]
+  },
+  {
+    "id": "enc-dingong",
+    "name": "地宫深处",
+    "groups": [
+      {
+        "enemies": [
+          "enemy-zombie",
+          "enemy-zombie"
+        ],
+        "weight": 30
+      },
+      {
+        "enemies": [
+          "enemy-yuan-shi"
+        ],
+        "weight": 20
+      },
+      {
+        "enemies": [
+          "enemy-gui-hun",
+          "enemy-yuan-shi"
+        ],
+        "weight": 20
+      },
+      {
+        "enemies": [
+          "enemy-zei-toumu"
+        ],
+        "weight": 20
+      },
+      {
+        "enemies": [
+          "enemy-huan-jing-ling"
+        ],
+        "weight": 10
+      }
+    ]
   }
 ]

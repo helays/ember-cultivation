@@ -1,0 +1,12 @@
+[
+  {
+    "id": "tal-qixie", "name": "绘制驱邪符", "inputs": [{ "item": "item-mat-shougu", "qty": 1 }],
+    "output": { "item": "item-fu-qixie", "qty": 2 }, "timeCost": 1,
+    "desc": "朱砂勾骨纹，一炉两符。"
+  },
+  {
+    "id": "tal-jinglei", "name": "绘制惊雷符", "inputs": [{ "item": "item-mat-tiekuang", "qty": 2 }, { "item": "item-mat-hunshi", "qty": 1 }],
+    "output": { "item": "item-fu-jing-lei", "qty": 1 }, "timeCost": 1,
+    "desc": "引天雷入纸，成符即封。"
+  }
+]
